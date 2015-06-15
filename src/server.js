@@ -4,68 +4,44 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var PersistentResource = require('./persistent-resource');
 
+var app = express();
+app.use(express.static('www'));
+
 var mongoURL = 'mongodb://localhost:27017';
-var Resource = new PersistentResource(mongoURL,
-  'todos', 'todos', {
-    created: Date,
-    task: String,
-    done: Boolean,
+var Board = new PersistentResource(mongoURL,
+  'yelo', 'boards', {
+    name: String,
   },
   function(err) {
-    if (err) {
-      throw new Error('ERROR: Could not connect to MongoDB');
-    }
+    if (err) { throw new Error('ERROR: Could not connect to MongoDB'); }
 
-    var app = express();
-    app.use(express.static('www'));
-
-    app.get('/todos', function(req, res) {
-      console.log('GET /todos');
+    app.get('/boards', function(req, res) {
       Resource.getAll(function(err, docs) {
-        if (err) {
-          res.status(500).send('Database Error');
-        } else {
-          res.status(200).send(docs);
-        }
+        if (err) { res.status(500).send('Database Error'); }
+        else { res.status(200).send(docs); }
       });
     });
 
     app.use(bodyParser.json());
     app.post('/todos', function(req, res) {
-      console.log('POST /todos');
-      req.body.created = new Date();
-      req.body.done = false;
-      var hash = { done: false, created: new Date(), task: req.body.task };
+      var hash = { name: 'default name' };
       Resource.create(hash, function(err, doc) {
-        if (err) {
-          console.error('ERROR: Could not create new todo');
-          res.status(500).send('Database Error');
-        } else {
-          console.info('Created todo ' + doc._doc._id);
-          res.status(201).send(doc._doc);
-        }
+        if (err) { res.status(500).send('Database Error'); }
+        else { res.status(201).send(doc._doc); }
       });
     });
 
     app.put('/todos/:id', function(req, res) {
-      console.log('PUT /todos/' + req.params.id);
       Resource.save(req.params.id, req.body, function(err, doc) {
-        if (err) {
-          res.status(500).send('Database Error');
-        } else {
-          res.status(200).send('Updated todo ' + doc._doc._id);
-        }
+        if (err) { res.status(500).send('Database Error'); }
+        else { res.status(200).send('Updated resource ' + doc._doc._id); }
       });
     });
 
     app.delete('/todos/:id', function(req, res) {
-      console.log('DELETE /todos/' + req.params.id);
       Resource.drop(req.params.id, function(err) {
-        if (err) {
-          res.status(500).send('Database Error');
-        } else {
-          res.status(200).send('Dropped todo ' + req.params.id);
-        }
+        if (err) { res.status(500).send('Database Error'); }
+        else { res.status(200).send('Dropped resource ' + req.params.id); }
       });
     });
 
