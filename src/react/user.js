@@ -1,4 +1,4 @@
-var React = require('react')
+var React = require('react');
 
 var User = React.createClass({
   render: function() {
@@ -12,8 +12,8 @@ var User = React.createClass({
         <button>Login</button>
       </form>
       </div>
-    )
+    );
   }
-})
+});
 
-module.exports = User
+module.exports = User;
