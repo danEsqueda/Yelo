@@ -1,5 +1,5 @@
 var React = require('react')
-var User = require('./users')
+var User = require('./user')
 
 var App = React.createClass({
   render: function() {
