@@ -18,6 +18,24 @@ module.exports = function(app, mongoURL) {
         });
       });
 
+      app.get('/boards/:id', function(req, res) {
+        if(req.accepts(['text/html', 'application/json']) == 'text/html') {
+          Board.getAll(function(err, docs) {
+            if (err) { res.status(500).send('Database Error'); }
+            else { res.status(200).send(docs); }
+          });
+        } else if (req.accepts(['text/html', 'application/json']) == 'text/html') {
+          
+          Board.getAll(function(err, docs) {
+            if (err) { res.status(500).send('Database Error'); }
+            else { res.status(200).send(docs); }
+          });
+          
+        } else {
+          res.sendStatus(406);
+        }
+      });
+
       app.use(bodyParser.json());
 
       app.post('/boards', function(req, res) {
