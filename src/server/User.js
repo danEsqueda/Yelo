@@ -12,7 +12,10 @@ module.exports = function(app, mongoURL, database) {
       photoURL: String
     },
     function(err) {
-      if (err) { throw new Error('ERROR: Could not connect to MongoDB'); }
+      if (err) { 
+        console.error(err);
+        throw new Error('ERROR: Could not connect to MongoDB');
+      }
 
       app.get('/users', function(req, res) {
         User.getAll(function(err, docs) {

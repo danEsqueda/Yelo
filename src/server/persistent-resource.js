@@ -19,11 +19,10 @@ function PersistentResource(mongoURL, databaseName, name, schema, callback) {
     throw new Error('need 5 arguments to PersistentResource');
   }
 
-  this.db = mongoose.connection;
+  this.db = mongoose.createConnection(mongoURL + '/' + databaseName);
   this.schema = mongoose.Schema(schema);
   this.model = this.db.model(name, this.schema, name);
 
-  mongoose.connect(mongoURL + '/' + databaseName);
   this.db.on('error', callback);
   this.db.once('open', function() {
     callback(null);
