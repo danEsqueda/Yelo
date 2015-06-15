@@ -1,6 +1,6 @@
 'use strict';
 
-var PersistentResource = require('../persistent-resource');
+var PersistentResource = require('../src/server/persistent-resource');
 var chai = require('chai');
 var expect = chai.expect;
 expect(PersistentResource).to.not.be.null;
@@ -46,7 +46,7 @@ describe('a PersistentResource', function() {
   });
 
   it('can add 2 identical documents', function(done) {
-    var hash = { created: new Date(), task: 'test the DB', done: false };
+    var hash = { name: 'test the DB' };
     PR.create(hash, function(err, doc) {
       expect(err).to.be.null;
       expect(doc._doc.task).to.eql(hash.task);
