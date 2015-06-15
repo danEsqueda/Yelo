@@ -3,7 +3,11 @@
 module.exports = function(app, mongoURL) {
   var User = new PersistentResource(mongoURL,
     'yelo', 'users', {
-      name: String,
+      fullName: String,
+      userName: String,
+      email: String,
+      password: String,
+      photoURL: String
     },
     function(err) {
       if (err) { throw new Error('ERROR: Could not connect to MongoDB'); }

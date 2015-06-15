@@ -4,6 +4,11 @@ module.exports = function(app, mongoURL) {
   var Card = new PersistentResource(mongoURL,
     'yelo', 'cards', {
       name: String,
+      content: String,
+      colors: [String],
+      comments: [String],
+      users: [User],
+      parent: ColumnId
     },
     function(err) {
       if (err) { throw new Error('ERROR: Could not connect to MongoDB'); }
