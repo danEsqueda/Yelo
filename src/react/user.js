@@ -4,11 +4,13 @@ var User = React.createClass({
   render: function() {
     return (
       <div>
+      <form action="/checkLogin"
         Username:
-        <input type='text' />
+        <input type='text' name='username'/>
         Password:
-        <input type='text' />
+        <input type='text' name='password'/>
         <button>Login</button>
+      </form>
       </div>
     )
   }
