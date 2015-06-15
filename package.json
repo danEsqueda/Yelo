@@ -1,0 +1,36 @@
+{
+  "name": "yelo",
+  "version": "0.1.0",
+  "description": "trello clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "build": "browserify js/app.js -o public/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dani2846/Yelo.git"
+  },
+  "keywords": [
+    "card",
+    "board"
+  ],
+  "author": "Daniel Esqueda, Kendall Komey, Alec Hollingsworth, Nick Peters, Jonathan Ringvald",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dani2846/Yelo/issues"
+  },
+  "homepage": "https://github.com/dani2846/Yelo#readme",
+  "dependencies": {
+    "browserify": "^10.2.4",
+    "express": "^4.12.4",
+    "jquery": "^2.1.4",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  }
+}
