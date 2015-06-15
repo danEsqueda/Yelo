@@ -4,6 +4,9 @@ module.exports = function(app, mongoURL) {
   var Board = new PersistentResource(mongoURL,
     'yelo', 'boards', {
       name: String,
+      columns: [Column],
+      users: [User],
+      colors: [String]
     },
     function(err) {
       if (err) { throw new Error('ERROR: Could not connect to MongoDB'); }
@@ -13,6 +16,20 @@ module.exports = function(app, mongoURL) {
           if (err) { res.status(500).send('Database Error'); }
           else { res.status(200).send(docs); }
         });
+      });
+
+      app.get('/boards/:id', function(req, res) {
+        if(req.accepts(['text/html', 'application/json']) == 'text/html') {
+          //serve static template?
+        } else if (req.accepts(['text/html', 'application/json']) == 'application/json') {
+          Board.get(req.params.id, function(err, doc) {
+            if (err) { res.status(500).send('Database Error'); }
+            else { res.status(200).send(doc); }
+          });
+          
+        } else {
+          res.sendStatus(406);
+        }
       });
 
       app.use(bodyParser.json());
