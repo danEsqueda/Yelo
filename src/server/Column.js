@@ -1,8 +1,10 @@
 'use strict';
 
-module.exports = function(app, mongoURL) {
+var PersistentResource = require('./persistent-resource');
+
+module.exports = function(app, mongoURL, database) {
   var Column = new PersistentResource(mongoURL,
-    'yelo', 'columns', {
+    database, 'columns', {
       name: String,
       cards: [Card],
       parent: BoardID
