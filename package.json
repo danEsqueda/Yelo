@@ -25,6 +25,9 @@
     "browserify": "^10.2.4",
     "express": "^4.12.4",
     "jquery": "^2.1.4",
+    "keygen": "^0.1.1",
+    "mongo": "^0.1.0",
+    "mongojs": "^1.0.0",
     "react": "^0.13.3",
     "reactify": "^1.1.1"
   },
