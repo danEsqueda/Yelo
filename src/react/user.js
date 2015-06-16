@@ -1,6 +1,11 @@
 var React = require('react');
 
 var User = React.createClass({
+  getInitialState: function(){
+    return {
+      message: 'Please Log In'
+    }
+  },
   handleChangeUsername: function(e) {
    this.setState({
       username: e.target.value
@@ -12,17 +17,30 @@ var User = React.createClass({
     });
   },
   handleLogin: function(){
-    console.log('getting here?');
-    var username = this.state.username;
-    var password = this.state.password;
-    console.log(username + ' ' + password);
-    var note = {author: 'Kendall', note: this.state.note};
-    //this.props.addNote(note);
-    //this.setState({note: ''});
+    var checkLogin = {username: this.state.username, password: this.state.password}
+    // TODO: merge with express router to get correct route
+    var endpoint = 'http://localhost:3000/login';
+      $.ajax({
+        url: endpoint,
+        dataType: 'json',
+        type: 'post',
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data: checkLogin,
+        cache: false,
+        success: function(data) {
+          console.log('success here');
+        }.bind(this),
+        error: function(xhr, status, err) {
+          // TODO: Move to success once link is working
+          console.log('Error logging in!');
+        }.bind(this)
+      });
   },
   render: function() {
     return (
       <div>
+        {this.state.message}
+        <p></p>
         Username:
         <input type='text' name='username' onChange={this.handleChangeUsername}/>
         Password:
