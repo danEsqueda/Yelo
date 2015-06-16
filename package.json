@@ -4,7 +4,7 @@
   "description": "trello clone",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha test/*_test.js",
     "build": "browserify src/react/app.js -o public/bundle.js"
   },
   "repository": {
