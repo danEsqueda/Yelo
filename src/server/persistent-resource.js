@@ -37,6 +37,10 @@ PersistentResource.prototype.get = function(id, callback) { // (err, doc)
   this.model.findOne({ _id: id }).lean().exec(callback);
 };
 
+PersistentResource.prototype.find = function(query, callback) { // (err, doc)
+  this.model.findOne(query).lean().exec(callback);
+};
+
 PersistentResource.prototype.create = function(hash, callback) { // (err, doc)
   this.model.create(hash, callback);
 };

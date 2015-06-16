@@ -54,6 +54,20 @@ module.exports = function(app, mongoURL, database, callback) {
         });
       });
 
+      app.post('/login', function(req, res) {
+        if (!req.body.username || !req.body.password) {
+          res.status(403).send('Unauthorized');
+        } else {
+          User.find({ userName: req.body.username }, function(err, doc) {
+            if (err || !doc || !doc.password || doc.password !== req.body.password) {
+              res.status(403).send('Unauthorized');
+            } else {
+              res.status(200).send('Authorized');
+            }
+          });
+        }
+      });
+
       callback();
     });
 
