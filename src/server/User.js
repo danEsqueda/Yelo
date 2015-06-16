@@ -9,7 +9,8 @@ module.exports = function(app, mongoURL, database) {
       userName: String,
       email: String,
       password: String,
-      photoURL: String
+      photoURL: String,
+      session: String,
     },
     function(err) {
       if (err) { 
