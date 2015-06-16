@@ -9,7 +9,8 @@ module.exports = function(app, mongoURL, database) {
       userName: String,
       email: String,
       password: String,
-      photoURL: String
+      photoURL: String,
+      session: String,
     },
     function(err) {
       if (err) { 
@@ -23,8 +24,6 @@ module.exports = function(app, mongoURL, database) {
           else { res.status(200).send(docs); }
         });
       });
-
-      app.use(require('body-parser').json());
 
       app.post('/users', function(req, res) {
         var hash = { name: 'default user name' };
