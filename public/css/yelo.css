@@ -13,8 +13,22 @@
   Note: IE6 works fine without this fix.
 */
 
-body {
-  color: blue;
+div {
+  border-color: red;
+  border-style: solid;
+}
+
+.splash {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  color: black;
+  font-family: Verdana;
+}
+
+.logo {
+  width: 25%;
+  height: 25%;
 }
 
 .board {
