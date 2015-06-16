@@ -71,76 +71,134 @@ var users = [
 },
 ];
 
-var QreateUser = Q.nbind(User.create, User);
-function createUsers(users) {
-  Q
-  .all(users.map(function(user) { return QreateUser(user); }))
+var cards = [
+{
+  name: 'card numero uno',
+  content: 'first card',
+  colors: ['#ffffff'],
+  comments: ['card comment'],
+  users: [],
+},
+{
+  name: 'card numero dos',
+  content: 'second card',
+  colors: ['#ffffff'],
+  comments: ['card comment'],
+  users: [],
+},
+{
+  name: 'card numero tres',
+  content: 'third card',
+  colors: ['#ffffff'],
+  comments: ['card comment'],
+  users: [],
+},
+{
+  name: 'card numero cuatro',
+  content: 'fourth card',
+  colors: ['#ffffff'],
+  comments: ['card comment'],
+  users: [],
+},
+{
+  name: 'card numero cinco',
+  content: 'fifth card',
+  colors: ['#ffffff'],
+  comments: ['card comment'],
+  users: [],
+},
+{
+  name: 'card numero seis',
+  content: 'sixth card',
+  colors: ['#ffffff'],
+  comments: ['card comment'],
+  users: [],
+},
+];
+
+var columns = [
+{
+  name: 'Column #1',
+  cards: [],
+},
+{
+  name: 'Column #2',
+  cards: [],
+},
+{
+  name: 'Column #3',
+  cards: [],
+},
+{
+  name: 'Column #4',
+  cards: [],
+},
+{
+  name: 'Column #5',
+  cards: [],
+},
+{
+  name: 'Column #6',
+  cards: [],
+},
+];
+
+var boards = [
+{
+  name: 'Board #1',
+  columns: [],
+  users: [],
+  colors: ["#ffffff"],
+},
+{
+  name: 'Board #2',
+  columns: [],
+  users: [],
+  colors: ["#ffffff"],
+},
+{
+  name: 'Board #3',
+  columns: [],
+  users: [],
+  colors: ["#ffffff"],
+},
+];
+
+function createUsers(users, callback) {
+  var QreateUser = Q.nbind(User.create, User);
+  Q.all(users.map(function(user) { return QreateUser(user); }))
   .then(function(docs) {
-    console.log('then', docs);
+    console.log('Created users', docs.map(function(u) { return u.fullName; }));
+    callback(null, docs);
   });
-  // users.forEach(function(user) {
-  //   User.create(user, function(err, doc) {
-  //     if (err) {
-  //       throw new Error(err);
-  //     } else {
-  //       console.log('Created User: ', user.fullName);
-  //     }
-  //   })
-  // })
 }
 
-createUsers(users);
-setTimeout(disconnect, 5000);
+function createCards(cards, callback) {
+  var QreateCard = Q.nbind(Card.create, Card);
+  Q.all(cards.map(function(card) { return QreateCard(card); }))
+  .then(function(docs) {
+    console.log('Created cards', docs.map(function(c) { return c.name; }));
+    callback(null, docs);
+  });
+}
 
-// var hash = {
-//   name: 'this is a card',
-//   content: 'card content',
-//   colors: ['#ffffff'],
-//   comments: ['first post'],
-//   users: [userID],
-// };
-// Card.create(hash, function(err, doc) {
-//   if (err) console.error(err);
-//   expect(err).to.be.null;
-//   expect(doc).to.not.be.null;
+function createColumns(columns, callback) {
+  var QreateColumn = Q.nbind(Column.create, Column);
+  Q.all(columns.map(function(column) { return QreateColumn(column); }))
+  .then(function(docs) {
+    console.log('Created Columns', docs.map(function(c) { return c.name; }));
+    callback(null, docs);
+  });
+}
 
-//   cardID = doc._id;
-
-//   Card.get(doc._id, function(err, doc) {
-//     expect(err).to.be.null;
-//     expect(doc).to.not.be.null;
-//     done();
-//   });
-// });
-
-
-
-// var hash = {
-//   name: 'Todo List',
-//   cards: [cardID],
-// };
-// Column.create(hash, function(err, doc) {
-//   expect(err).to.be.null;
-//   expect(doc).to.not.be.null;
-
-//   columnID = doc._id;
-//   done();
-// });
-
-
-
-// var hash = {
-//   name: 'Board-o-rama',
-//   columns: [columnID],
-//   users: [userID],
-//   colors: ["#ffffff"],
-// };
-// Board.create(hash, function(err, doc) {
-//   expect(err).to.be.null;
-//   expect(doc).to.not.be.null;
-
-//   done();
-// })
+function createBoards(boards, callback) {
+  var QreateBoard = Q.nbind(Board.create, Board);
+  Q.all(boards.map(function(board) { return QreateBoard(board); }))
+  .then(function(docs) {
+    console.log('Created Boards', docs.map(function(b) { return b.name; }));
+    callback(null, docs);
+  });
+}
 
 function disconnect() {
   User.disconnect(function() {
@@ -153,3 +211,38 @@ function disconnect() {
     });
   });
 }
+
+var userIDs;
+Q()
+.then(function() {
+  return Q.nfbind(createUsers)(users);
+})
+.then(function(userDocs) {
+  userIDs = userDocs.map(function(u) { return u._id; });
+  cards = cards.map(function(card, index) {
+    card.users.unshift(userDocs[index % userDocs.length]._id);
+    card.users.unshift(userDocs[(index+1) % userDocs.length]._id);
+    return card;
+  });
+  return Q.nfbind(createCards)(cards);
+})
+.then(function(cardDocs) {
+  columns = columns.map(function(column, index) {
+    column.cards.unshift(cardDocs[index]._id);
+    return column;
+  });
+  return Q.nfbind(createColumns)(columns);
+})
+.then(function(columnDocs) {
+  boards = boards.map(function(board, index) {
+    board.users = board.users.concat(userIDs);
+    board.columns.unshift(columnDocs[index]._id);
+    board.columns.unshift(columnDocs[(index+3) % columnDocs.length]._id);
+    return board;
+  });
+  return Q.nfbind(createBoards)(boards);
+})
+.then(function() {
+  disconnect();
+});
+
