@@ -15,7 +15,7 @@ var Card = React.createClass({
 
   toggleCardView: function() {
     this.setState({
-      editView: !editView
+      editView: !this.state.editView
     });
   },
 
