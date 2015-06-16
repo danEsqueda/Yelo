@@ -8,7 +8,7 @@ var Board = React.createClass({
       name: '',
       columns: [],
       users: [],
-      
+
     };
   },
 
@@ -20,7 +20,7 @@ var Board = React.createClass({
         // users: data.users
       // });
     // });
-    
+
     //TEST DATA
     this.setState({
       name: 'My new board!',
@@ -33,11 +33,15 @@ var Board = React.createClass({
   render: function() {
 
     var columnList = this.state.columns.map(function(column) {
-      return <Column key={column} />
+      return (
+        <div className='board' className='grid_3'>
+          <Column key={column} />
+        </div>
+      )
     });
 
     return (
-      <div className='board'>
+      <div>
         <p>{this.state.name}</p>
         {columnList}
       </div>
