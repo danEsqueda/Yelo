@@ -1,10 +1,12 @@
 var React = require('react');
 var User = require('./user');
+var Header = require('./header');
 
 var App = React.createClass({
   render: function() {
     return (
       <main>
+        <Header />
         <h1>Welcome to Yelo</h1>
         <User />
       </main>
