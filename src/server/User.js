@@ -1,8 +1,10 @@
 'use strict';
 
-module.exports = function(app, mongoURL) {
+var PersistentResource = require('./persistent-resource');
+
+module.exports = function(app, mongoURL, database) {
   var User = new PersistentResource(mongoURL,
-    'yelo', 'users', {
+    database, 'users', {
       fullName: String,
       userName: String,
       email: String,
@@ -10,7 +12,10 @@ module.exports = function(app, mongoURL) {
       photoURL: String
     },
     function(err) {
-      if (err) { throw new Error('ERROR: Could not connect to MongoDB'); }
+      if (err) { 
+        console.error(err);
+        throw new Error('ERROR: Could not connect to MongoDB');
+      }
 
       app.get('/users', function(req, res) {
         User.getAll(function(err, docs) {
@@ -19,7 +24,7 @@ module.exports = function(app, mongoURL) {
         });
       });
 
-      app.use(bodyParser.json());
+      app.use(require('body-parser').json());
 
       app.post('/users', function(req, res) {
         var hash = { name: 'default user name' };

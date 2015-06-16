@@ -1,14 +1,16 @@
 'use strict';
 
-module.exports = function(app, mongoURL) {
+var PersistentResource = require('./persistent-resource');
+var ObjectID = require('mongoose').Schema.Types.ObjectId;
+
+module.exports = function(app, mongoURL, database) {
   var Card = new PersistentResource(mongoURL,
-    'yelo', 'cards', {
+    database, 'cards', {
       name: String,
       content: String,
       colors: [String],
       comments: [String],
-      users: [User],
-      parent: ColumnId
+      users: [{type: ObjectID, ref: 'users'}],
     },
     function(err) {
       if (err) { throw new Error('ERROR: Could not connect to MongoDB'); }
@@ -20,7 +22,7 @@ module.exports = function(app, mongoURL) {
         });
       });
 
-      app.use(bodyParser.json());
+      app.use(require('body-parser').json());
 
       app.post('/cards', function(req, res) {
         var hash = { name: 'default card name' };

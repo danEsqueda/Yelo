@@ -66,6 +66,20 @@ describe('a PersistentResource', function() {
     });
   });
 
+  it('can get 1 document by ID', function(done) {
+    PR.getAll(function(err, docs) {
+      expect(err).to.be.null;
+      var id = docs[0]._id;
+      PR.get(id, function(err, doc) {
+        expect(err).to.be.null;
+        expect(doc).to.not.be.null;
+        expect(doc._id).to.eql(id);
+        expect(doc.name).to.eql('test the DB');
+        done();
+      });
+    });
+  });
+
   after(function(done) {
     PR.disconnect(done);
   });
