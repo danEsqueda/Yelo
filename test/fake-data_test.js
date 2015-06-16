@@ -8,10 +8,10 @@ var app = express();
 
 var ObjectID = require('mongoose').Schema.Types.ObjectId;
 var MONGO = 'mongodb://localhost:27017';
-var User = require('../src/server/User')(app, MONGO, 'yelo_test');
-var Card = require('../src/server/Card')(app, MONGO, 'yelo_test');
-var Column = require('../src/server/Column')(app, MONGO, 'yelo_test');
-var Board = require('../src/server/Board')(app, MONGO, 'yelo_test');
+var User = require('../src/server/User')(app, MONGO, 'yelo_test', function() { });
+var Card = require('../src/server/Card')(app, MONGO, 'yelo_test', function() { });
+var Column = require('../src/server/Column')(app, MONGO, 'yelo_test', function() { });
+var Board = require('../src/server/Board')(app, MONGO, 'yelo_test', function() { });
 
 describe('loading fake data', function() {
   var userID;
