@@ -1,14 +1,15 @@
 'use strict';
 
 var PersistentResource = require('./persistent-resource');
+var ObjectID = require('mongoose').Schema.Types.ObjectId;
 
 module.exports = function(app, mongoURL, database) {
   var Board = new PersistentResource(mongoURL,
     database, 'boards', {
       name: String,
-      columns: [Column],
-      users: [User],
-      colors: [String]
+      columns: [{type: ObjectID, ref: 'columns'}],
+      users: [{type: ObjectID, ref: 'users'}],
+      colors: [String],
     },
     function(err) {
       if (err) { throw new Error('ERROR: Could not connect to MongoDB'); }
@@ -19,8 +20,6 @@ module.exports = function(app, mongoURL, database) {
           else { res.status(200).send(docs); }
         });
       });
-
-      app.use(bodyParser.json());
 
       app.post('/boards', function(req, res) {
         var hash = { name: 'default board name' };

@@ -22,8 +22,6 @@ module.exports = function(app, mongoURL, database) {
         });
       });
 
-      app.use(require('body-parser').json());
-
       app.post('/cards', function(req, res) {
         var hash = { name: 'default card name' };
         Card.create(hash, function(err, doc) {

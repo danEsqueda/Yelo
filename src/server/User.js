@@ -24,8 +24,6 @@ module.exports = function(app, mongoURL, database) {
         });
       });
 
-      app.use(require('body-parser').json());
-
       app.post('/users', function(req, res) {
         var hash = { name: 'default user name' };
         User.create(hash, function(err, doc) {
