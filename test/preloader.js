@@ -13,10 +13,10 @@ var app = express();
 
 var ObjectID = require('mongoose').Schema.Types.ObjectId;
 var MONGO = 'mongodb://localhost:27017';
-var User = require('../src/server/User')(app, MONGO, DATABASE);
-var Card = require('../src/server/Card')(app, MONGO, DATABASE);
-var Column = require('../src/server/Column')(app, MONGO, DATABASE);
-var Board = require('../src/server/Board')(app, MONGO, DATABASE);
+var User = require('../src/server/User')(app, MONGO, DATABASE, function() { });
+var Card = require('../src/server/Card')(app, MONGO, DATABASE, function() { });
+var Column = require('../src/server/Column')(app, MONGO, DATABASE, function() { });
+var Board = require('../src/server/Board')(app, MONGO, DATABASE, function() { });
 
 var Q = require('q');
 
