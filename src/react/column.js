@@ -1,5 +1,5 @@
 var React = require('react');
-var Card = require('card');
+var Card = require('./card');
 var $ = require('jquery');
 
 var Column = React.createClass({
@@ -11,22 +11,30 @@ var Column = React.createClass({
   },
 
   componentDidMount: function() {
-    $.get('/column/' + this.props.key, function(data, status) {
-      this.setState({
-        name: data.name,
-        cards: data.cards
-      });
+    // $.get('/column/' + this.props.key, function(data, status) {
+      // this.setState({
+        // name: data.name,
+        // cards: data.cards
+      // });
+    // });
+    
+    //TEST DATA
+    this.setState({
+      name: 'My new column!',
+      cards: [1,2],
     });
+
   },
 
   render: function() {
 
-    var cardList = this.state.cards(function(card) {
+    var cardList = this.state.cards.map(function(card) {
       return <Card key={card} />
     });
 
     return (
-      <div>
+      <div className='column'>
+        <p>{this.state.name}</p>
         {cardList}
       </div>
     );
