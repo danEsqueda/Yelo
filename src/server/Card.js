@@ -22,6 +22,13 @@ module.exports = function(app, mongoURL, database, callback) {
         });
       });
 
+      app.get('/cards/:id', function(req, res) { // serve application/json
+        Card.get(req.params.id, function(err, doc) {
+          if (err) { res.status(500).send('Database Error'); }
+          else { res.status(200).send(doc); }
+        });
+      });
+
       app.post('/cards', function(req, res) {
         var hash = { name: 'default card name' };
         Card.create(hash, function(err, doc) {
