@@ -80,4 +80,29 @@ describe('the Express server', function() {
       });
     });
   });
+
+  it('serves GET /columns with a JSON list', function(done) {
+    chai.request(app).get('/columns').then(function(res) {
+      expect(res).to.have.status(200);
+      expect(res.body.length).to.not.be.null;
+      done();
+    });
+  });
+
+  it('serves GET /columns/:id with a JSON object', function(done) {
+    var columnID;
+    chai.request(app).get('/columns').then(function(res) {
+      expect(res).to.have.status(200);
+      columnID = res.body[0]._id;
+      chai.request(app)
+      .get('/columns/' + columnID)
+      .set('Accept', 'application/json')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body._id).to.equal(columnID);
+        done();
+      });
+    });
+  });
 });

@@ -19,6 +19,13 @@ module.exports = function(app, mongoURL, database, callback) {
         });
       });
 
+      app.get('/columns/:id', function(req, res) { // serve application/json
+        Column.get(req.params.id, function(err, doc) {
+          if (err) { res.status(500).send('Database Error'); }
+          else { res.status(200).send(doc); }
+        });
+      });
+
       app.post('/columns', function(req, res) {
         var hash = { name: 'default column name' };
         Column.create(hash, function(err, doc) {
