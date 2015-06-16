@@ -17,7 +17,7 @@ var Column = React.createClass({
         // cards: data.cards
       // });
     // });
-    
+
     //TEST DATA
     this.setState({
       name: 'My new column!',
