@@ -105,4 +105,29 @@ describe('the Express server', function() {
       });
     });
   });
+
+  it('serves GET /users with a JSON list', function(done) {
+    chai.request(app).get('/users').then(function(res) {
+      expect(res).to.have.status(200);
+      expect(res.body.length).to.not.be.null;
+      done();
+    });
+  });
+
+  it('serves GET /users/:id with a JSON object', function(done) {
+    var userID;
+    chai.request(app).get('/users').then(function(res) {
+      expect(res).to.have.status(200);
+      userID = res.body[0]._id;
+      chai.request(app)
+      .get('/users/' + userID)
+      .set('Accept', 'application/json')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.not.be.null;
+        expect(res.body._id).to.equal(userID);
+        done();
+      });
+    });
+  });
 });

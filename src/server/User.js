@@ -25,6 +25,13 @@ module.exports = function(app, mongoURL, database, callback) {
         });
       });
 
+      app.get('/users/:id', function(req, res) { // serve application/json
+        User.get(req.params.id, function(err, doc) {
+          if (err) { res.status(500).send('Database Error'); }
+          else { res.status(200).send(doc); }
+        });
+      });
+
       app.post('/users', function(req, res) {
         var hash = { name: 'default user name' };
         User.create(hash, function(err, doc) {
