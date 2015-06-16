@@ -3,7 +3,7 @@
 var PersistentResource = require('./persistent-resource');
 var ObjectID = require('mongoose').Schema.Types.ObjectId;
 
-module.exports = function(app, mongoURL, database) {
+module.exports = function(app, mongoURL, database, callback) {
   var Column = new PersistentResource(mongoURL,
     database, 'columns', {
       name: String,
@@ -40,6 +40,8 @@ module.exports = function(app, mongoURL, database) {
           else { res.status(200).send('Dropped column ' + req.params.id); }
         });
       });
+
+      callback();
     });
 
   return Column;

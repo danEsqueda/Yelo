@@ -9,10 +9,10 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 var mongoURL = 'mongodb://localhost:27017';
-var Board = require('./Board')(app, mongoURL, 'yelo');
-var Column = require('./Column')(app, mongoURL, 'yelo');
-var User = require('./User')(app, mongoURL, 'yelo');
-var Card = require('./Card')(app, mongoURL, 'yelo');
+var Board = require('./Board')(app, mongoURL, 'yelo', function(err) { });
+var Column = require('./Column')(app, mongoURL, 'yelo', function(err) { });
+var User = require('./User')(app, mongoURL, 'yelo', function(err) { });
+var Card = require('./Card')(app, mongoURL, 'yelo', function(err) { });
 
 var port = 3000;
 app.listen(port, function() {

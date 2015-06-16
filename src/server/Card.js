@@ -3,7 +3,7 @@
 var PersistentResource = require('./persistent-resource');
 var ObjectID = require('mongoose').Schema.Types.ObjectId;
 
-module.exports = function(app, mongoURL, database) {
+module.exports = function(app, mongoURL, database, callback) {
   var Card = new PersistentResource(mongoURL,
     database, 'cards', {
       name: String,
@@ -43,6 +43,8 @@ module.exports = function(app, mongoURL, database) {
           else { res.status(200).send('Dropped card ' + req.params.id); }
         });
       });
+
+      callback(null);
     });
 
   return Card;

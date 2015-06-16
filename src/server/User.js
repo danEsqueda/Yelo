@@ -2,7 +2,7 @@
 
 var PersistentResource = require('./persistent-resource');
 
-module.exports = function(app, mongoURL, database) {
+module.exports = function(app, mongoURL, database, callback) {
   var User = new PersistentResource(mongoURL,
     database, 'users', {
       fullName: String,
@@ -46,6 +46,8 @@ module.exports = function(app, mongoURL, database) {
           else { res.status(200).send('Dropped user ' + req.params.id); }
         });
       });
+
+      callback();
     });
 
   return User;
