@@ -19,6 +19,18 @@ var Card = React.createClass({
     });
   },
 
+  updateName: function(e) {
+    this.setState({
+      name: e.target.value
+    });
+  },
+
+  updateContent: function(e) {
+    this.setState({
+      content: e.target.value
+    });
+  },
+
   componentDidMount: function() {
     // $.get('/card/' + this.props.key, function(data, status) {
     //   this.setState({
@@ -39,8 +51,8 @@ var Card = React.createClass({
     var buttonName;
     if (this.state.editView) {
       view = <form>
-        <input type='text' value={this.props.name} />
-        <textarea name='content' value={this.props.content} />
+        <input type='text' value={this.props.name} onChange={this.updateName} />
+        <textarea name='content' value={this.props.content} onChange={this.updateContent}/>
         <textarea name='comments' value={this.props.comments} />
       </form>;
       buttonName = 'Done';
