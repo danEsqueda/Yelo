@@ -18,6 +18,21 @@ div {
   border-style: solid;
 }
 
+button {
+ color:#08233e;
+  font:14px Futura, ‘Century Gothic’, AppleGothic, sans-serif;
+  padding:5px;
+  background:url('../images/overlay.png') repeat-x center rgba(255,204,0,1);
+  border:1px solid #ffcc00;
+  -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;
+  border-bottom:1px solid #9f9f9f;
+  -moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);-webkit-box-shadow:
+  inset 0 1px 0 rgba(255,255,255,0.5);box-shadow:inset 0 1px 0
+  rgba(255,255,255,0.5);
+  cursor:pointer;
+}
+button:hover{background-color:rgba(255,204,0,0.8);}
+
 .splash {
   margin-left: auto;
   margin-right: auto;
