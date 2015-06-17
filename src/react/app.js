@@ -13,7 +13,7 @@ var App = React.createClass({
       pageToShow:
       <div className='splash'>
         <Splash />
-        <button onClick={this.showBoards}>Board Selected</button>
+        <User />
       </div>
     }
   },
@@ -40,5 +40,7 @@ var App = React.createClass({
     );
   }
 });
+
+//<button onClick={this.showBoards}>Login</button>
 
 React.render(<App />, document.getElementById('app'));

@@ -1,11 +1,6 @@
 var React = require('react');
 
 var User = React.createClass({
-  getInitialState: function(){
-    return {
-      message: 'Please Log In'
-    }
-  },
   handleChangeUsername: function(e) {
    this.setState({
       username: e.target.value
@@ -39,15 +34,18 @@ var User = React.createClass({
   render: function() {
     return (
       <div>
-        {this.state.message}
-        <p></p>
-        Username:
-        <input type='text' name='username' onChange={this.handleChangeUsername}/>
-        Password:
-        <input type='password' name='password' onChange={this.handleChangePassword}/>
-
-        <button onClick={this.handleLogin}>Login</button>
-        <p><a href='#'>Or click to create a new account</a></p>
+      <table>
+        <tr>
+          <td>Username:</td>
+          <td><input type='text' name='username' onChange={this.handleChangeUsername}/></td>
+        </tr>
+        <tr>
+          <td>Password:</td>
+          <td><input type='password' name='password' onChange={this.handleChangePassword}/></td>
+        </tr>
+        <tr><td></td><td><button onClick={this.handleLogin}>Login</button></td></tr>
+      </table>
+      <p><a href='#'>Register for an account</a></p>
       </div>
     );
   }

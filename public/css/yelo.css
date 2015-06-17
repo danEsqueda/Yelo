@@ -13,9 +13,39 @@
   Note: IE6 works fine without this fix.
 */
 
-div {
+/*Try this if you need to center vertically
+.element {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}*/
+
+/*div {
   border-color: red;
   border-style: solid;
+}*/
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+h2 {
+  font-family: Futura;
+  font-size: 16px;
+  text-align: center;
+}
+
+table {
+  margin: 0 auto;
+}
+td {
+  text-align: right;
+}
+
+a {
+  font-size: 14px;
+  color: darkgrey;
 }
 
 button {
@@ -36,14 +66,9 @@ button:hover{background-color:rgba(255,204,0,0.8);}
 .splash {
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 300px;
   color: black;
   font-family: Verdana;
-}
-
-.logo {
-  width: 25%;
-  height: 25%;
 }
 
 .board {
