@@ -1,5 +1,3 @@
-//var mockBoards = [{key:1, name: 'firstBoard'}, {key:2, name: 'secondBoard'}];
-
 var React = require('react');
 
 var $ = require('jquery');
@@ -22,9 +20,14 @@ var BoardList = React.createClass({
     })
   },
 
+  nickClick: function(e) {
+    console.log('clicked ' + e.target);
+    this.props.handleBoard(e.target.key);
+  },
+
   render: function() {
     var boardList = this.state.boards.map(function(board) {
-      return <li key={board._id}><a href={'/boards/' + board._id}>{board.name}</a></li>
+      return <button key={board._id} onClick={this.nickClick}>{board.name}</button>
     });
 
     return (
