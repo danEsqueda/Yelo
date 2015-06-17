@@ -51,7 +51,10 @@ var Card = React.createClass({
     var buttonName;
     if (this.state.editView) {
       view = <form>
-        <input type='text' value={this.props.name} onChange={this.updateName} />
+        Enter Card Name:
+        <input type='text'
+               value={this.props.name}
+               onChange={this.updateName} />
         <textarea name='content' value={this.props.content} onChange={this.updateContent}/>
         <textarea name='comments' value={this.props.comments} />
       </form>;
