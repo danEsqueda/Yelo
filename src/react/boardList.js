@@ -7,7 +7,8 @@ var Board = require('./board');
 var BoardList = React.createClass({
   getInitialState: function() {
     return {
-      boards: []
+      boards: [],
+      boardName: ''
     }
   },
 
@@ -20,6 +21,47 @@ var BoardList = React.createClass({
     }.bind(this))
   },
 
+  updateBoardName: function(e) {
+    this.setState({
+      boardName: e.target.value
+    })
+  },
+
+  addBoard: function() {
+    $.ajax({
+      url:'/boards',
+      type:'POST',
+      data:JSON.stringify({name: this.state.boardName}),
+      contentType: 'application/json',
+      success: function(data) {
+        this.setState({
+          boards: this.state.boards.concat([data]),
+          boardName: ''
+        })
+      }.bind(this),
+      error: function(err) {
+        console.log(err)
+      }
+
+    })
+  },
+
+  deleteBoard: function(key) {
+    $.ajax({
+      url: '/boards/' + key,
+      type: 'DELETE',
+      success: function(result) {
+        console.log(result);
+        this.setState({
+          boards: this.state.boards.filter(function(board) { return board._id !== key })
+        })
+      }.bind(this),
+      error: function(err) {
+        console.log(err)
+      }
+    })
+  },
+
   /*handleClick: function(e) {
     console.log('clicked ' + e.target.key);
     this.props.handleBoard(e.target.key);
@@ -27,12 +69,17 @@ var BoardList = React.createClass({
 
   render: function() {
     var boardList = this.state.boards.map(function(board) {
-      return <button key={board._id} onClick={this.props.handleBoard.bind(null,board._id)} _id={board._id}>{board.name}</button>
+      return <div key={board._id}>
+              <button onClick={this.props.handleBoard.bind(null,board._id)}>{board.name}</button>
+              <button onClick={this.deleteBoard.bind(null, board._id)}>Delete {board.name}</button>
+            </div>
     }.bind(this));
 
     return (
       <div>
         {boardList}
+        <input type='text' value={this.state.boardName} onChange={this.updateBoardName}></input>
+        <button onClick={this.addBoard}>Create Board</button>
       </div>
     )
   }
