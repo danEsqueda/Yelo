@@ -5,17 +5,18 @@ var BoardList = require('./boardList');
 var Main = React.createClass({
   getInitialState: function() {
     return {
-      currentlyShowing: <BoardList />
+      currentlyShowing: <BoardList handleBoard={this.handleBoard} />
     };
   },
 
-  handleLogin: function() {
+  /*handleLogin: function() {
       this.setState({
         currentlyShowing: <BoardList />
       })
-  },
+  },*/
 
   handleBoard: function(key) {
+    console.log(key);
       this.setState({
         currentlyShowing: <Board key={key} />
       })

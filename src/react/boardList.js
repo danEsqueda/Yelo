@@ -20,15 +20,15 @@ var BoardList = React.createClass({
     })
   },
 
-  nickClick: function(e) {
-    console.log('clicked ' + e.target);
+  /*handleClick: function(e) {
+    console.log('clicked ' + e.target.key);
     this.props.handleBoard(e.target.key);
-  },
+  },*/
 
   render: function() {
     var boardList = this.state.boards.map(function(board) {
-      return <button key={board._id} onClick={this.nickClick}>{board.name}</button>
-    });
+      return <button key={board._id} onClick={this.props.handleBoard.bind(null,board._id)}>{board.name}</button>
+    }.bind(this));
 
     return (
       <div>
