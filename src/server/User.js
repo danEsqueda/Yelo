@@ -13,7 +13,7 @@ module.exports = function(app, mongoURL, database, callback) {
       session: String,
     },
     function(err) {
-      if (err) { 
+      if (err) {
         console.error(err);
         throw new Error('ERROR: Could not connect to MongoDB');
       }

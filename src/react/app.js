@@ -13,8 +13,7 @@ var App = React.createClass({
       pageToShow:
       <div className='splash'>
         <Splash />
-        <User />
-        <button onClick={this.showBoards}>Show Boards</button>
+        <User handleSuccessfulLogin={this.showBoards} />
       </div>
     }
   },

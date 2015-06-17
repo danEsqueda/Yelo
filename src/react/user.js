@@ -28,12 +28,9 @@ var User = React.createClass({
         cache: false,
         success: function(data) {
           console.log('success here');
+          this.props.handleSuccessfulLogin();
         }.bind(this),
         error: function(xhr, status, err) {
-          // TODO: Move to success once link is working
-          console.log(xhr);
-          console.log(status);
-          console.log(err);
           console.log('Error logging in!');
         }.bind(this)
       });
