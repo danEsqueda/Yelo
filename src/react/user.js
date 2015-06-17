@@ -1,10 +1,19 @@
 var React = require('react');
+var Main = require('./main');
 
 var User = React.createClass({
+  getInitialState: function() {
+    return {
+      message: ''
+    };
+  },
   handleChangeUsername: function(e) {
    this.setState({
       username: e.target.value
     });
+    if (!username) {
+      message: 'Please enter a username';
+    }
   },
   handleChangePassword: function(e) {
    this.setState({
@@ -43,7 +52,8 @@ var User = React.createClass({
           <td>Password:</td>
           <td><input type='password' name='password' onChange={this.handleChangePassword}/></td>
         </tr>
-        <tr><td></td><td><button onClick={this.handleLogin}>Login</button></td></tr>
+        <tr><td><span className='message'>{this.state.message}</span></td><td>
+          <button onClick={this.handleLogin}>Login</button></td></tr>
       </table>
       <p><a href='#'>Register for an account</a></p>
       </div>
@@ -52,3 +62,4 @@ var User = React.createClass({
 });
 
 module.exports = User;
+

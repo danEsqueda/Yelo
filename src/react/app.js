@@ -14,6 +14,7 @@ var App = React.createClass({
       <div className='splash'>
         <Splash />
         <User />
+        <button onClick={this.showBoards}>Show Boards</button>
       </div>
     }
   },
@@ -25,14 +26,6 @@ var App = React.createClass({
   },
 
   render: function() {
-    // var loggedIn = true;
-    // var pageToShow;
-    // if (loggedIn) {
-      // pageToShow = <Main />
-    // }
-    // else {
-      // pageToShow = <User />
-    // }
     return (
       <main>
         {this.state.pageToShow}
@@ -40,7 +33,5 @@ var App = React.createClass({
     );
   }
 });
-
-//<button onClick={this.showBoards}>Login</button>
 
 React.render(<App />, document.getElementById('app'));

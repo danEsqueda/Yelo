@@ -12,4 +12,4 @@ var Splash = React.createClass({
 })
 
 module.exports = Splash;
-        //<img className='logo' src='http://edtechtimes.com/wp-content/uploads/2014/05/CodeFellows.png'/>
+//<img className='logo' src='http://edtechtimes.com/wp-content/uploads/2014/05/CodeFellows.png'/>
