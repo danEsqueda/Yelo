@@ -116,8 +116,8 @@ var Card = React.createClass({
     var coms = this.state.comments.map(function(comment) {
       return <p>{comment}</p>
     });
-    var colors = this.state.colors.map(function(color) {
-      return <div name={color} className='color-box'></div>
+    var summaryColors = this.state.colors.map(function(color) {
+      return <ColorBox color={color} />
     });
     var users = this.state.users.map(function(user) {
       return <div className={user}>{user}</div>
@@ -143,7 +143,7 @@ var Card = React.createClass({
     } else {
       view = <div>
         <h3>{this.state.name}</h3>
-        {colors}
+        {summaryColors}
         <p>{this.state.comments.length} comments</p>
         {users}
       </div>
