@@ -16,9 +16,8 @@ var Main = React.createClass({
   },*/
 
   handleBoard: function(key) {
-    console.log(key);
       this.setState({
-        currentlyShowing: <Board key={key} />
+        currentlyShowing: <Board key={key} _id={key} />
       })
   },
 
