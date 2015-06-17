@@ -1,5 +1,6 @@
 var React = require('react');
 var $ = require('jquery');
+var ColorBox = require('./colorbox')
 
 var Card = React.createClass({
   getInitialState: function() {
@@ -15,6 +16,22 @@ var Card = React.createClass({
                              value={this.props.content}
                              onChange={this.updateContent}/>
     };
+  },
+
+  colorToggled: function(active, color) {
+    if (active) {
+      this.setState({
+        colors: this.state.colors.concat([color])
+      });
+    } else {
+      var newColors = this.state.colors.filter(function(element) {
+        return element !== color
+      });
+      this.setState({
+        colors: newColors
+      });
+    }
+
   },
 
   toggleCardView: function() {
@@ -35,8 +52,6 @@ var Card = React.createClass({
     });
   },
 
-<<<<<<< HEAD
-=======
   handleAddComment: function(e) {
     e.preventDefault();
     var newComment = this.refs.newComment.findDOMNode().value;
@@ -49,14 +64,13 @@ var Card = React.createClass({
   handleColors: function(e) {
 
     this.setState({
-      colors: this.state.colors.concat(['blue'])
+      colors: this.state.colors.concat([e.target.className])
     });
     console.log(e.target.class);
     console.log(e.target.className);
 
   },
 
->>>>>>> add color div's
   componentDidMount: function() {
     $.get('/cards/' + this.props._id, function(data, status) {
       this.setState({
@@ -67,8 +81,6 @@ var Card = React.createClass({
         users: data.users
       });
     }.bind(this));
-<<<<<<< HEAD
-=======
   },
 
   toggleContent: function(e) {
@@ -88,7 +100,7 @@ var Card = React.createClass({
         contentButton: 'Save'
       });
     }
->>>>>>> add color div's
+
   },
 
   render: function() {
@@ -98,10 +110,8 @@ var Card = React.createClass({
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
     var clickColors = setColors.map(function(setColor) {
-      return <div onClick={this.handleColors}
-                  refs={setColor}
-                  className={setColor}>{setColor}</div>
-    });
+      return <ColorBox colorToggled={this.colorToggled} color={setColor} />
+    }.bind(this));
 
     var coms = this.state.comments.map(function(comment) {
       return <p>{comment}</p>
@@ -121,7 +131,9 @@ var Card = React.createClass({
         Card Content:
         {this.state.contentView}
         <button onClick={this.toggleContent}>{this.state.contentButton}</button>
+
         Colors: {clickColors}
+
         Comments:
         <textarea name='comments' value={this.props.comments} ref='newComment' />
         <button onClick={this.handleAddComment}>Add</button>
