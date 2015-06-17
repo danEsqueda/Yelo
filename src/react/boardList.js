@@ -17,7 +17,7 @@ var BoardList = React.createClass({
       _this.setState({
         boards: data
       })
-    })
+    }.bind(this))
   },
 
   /*handleClick: function(e) {
@@ -27,7 +27,7 @@ var BoardList = React.createClass({
 
   render: function() {
     var boardList = this.state.boards.map(function(board) {
-      return <button key={board._id} onClick={this.props.handleBoard.bind(null,board._id)}>{board.name}</button>
+      return <button key={board._id} onClick={this.props.handleBoard.bind(null,board._id)} _id={board._id}>{board.name}</button>
     }.bind(this));
 
     return (

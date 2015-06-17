@@ -32,18 +32,15 @@ var Card = React.createClass({
   },
 
   componentDidMount: function() {
-    // $.get('/card/' + this.props.key, function(data, status) {
-    //   this.setState({
-    //     name: data.name,
-    //     content: data.content,
-    //     colors: data.colors,
-    //     comments: data.comments,
-    //     users: data.users
-    //   });
-    // });
-    this.setState({
-      name: 'My Card ' + this.props.key
-    });
+    $.get('/cards/' + this.props._id, function(data, status) {
+      this.setState({
+        name: data.name,
+        content: data.content,
+        colors: data.colors,
+        comments: data.comments,
+        users: data.users
+      });
+    }.bind(this));
   },
 
   render: function() {

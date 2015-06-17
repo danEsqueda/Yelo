@@ -11,25 +11,25 @@ var Column = React.createClass({
   },
 
   componentDidMount: function() {
-    // $.get('/column/' + this.props.key, function(data, status) {
-      // this.setState({
-        // name: data.name,
-        // cards: data.cards
-      // });
-    // });
+    $.get('/columns/' + this.props._id, function(data, status) {
+      this.setState({
+        name: data.name,
+        cards: data.cards
+      });
+    }.bind(this));
 
     //TEST DATA
-    this.setState({
-      name: 'My new column!',
-      cards: [1,2],
-    });
+    // this.setState({
+      // name: 'My new column!',
+      // cards: [1,2],
+    // });
 
   },
 
   render: function() {
 
     var cardList = this.state.cards.map(function(card) {
-      return <Card key={card} />
+      return <Card key={card} _id={card} />
     });
 
     return (
