@@ -8,32 +8,69 @@ var Card = React.createClass({
       content: '',
       colors: [],
       comments: [],
-      users: []
+      users: [],
+      editView: false
     };
   },
 
+  toggleCardView: function() {
+    this.setState({
+      editView: !this.state.editView
+    });
+  },
+
+  updateName: function(e) {
+    this.setState({
+      name: e.target.value
+    });
+  },
+
+  updateContent: function(e) {
+    this.setState({
+      content: e.target.value
+    });
+  },
+
   componentDidMount: function() {
-    $.get('/card/' + this.props.key, function(data, status) {
-      this.setState({
-        name: data.name,
-        content: data.content,
-        colors: data.colors,
-        comments: data.comments,
-        users: data.users
-      });
+    // $.get('/card/' + this.props.key, function(data, status) {
+    //   this.setState({
+    //     name: data.name,
+    //     content: data.content,
+    //     colors: data.colors,
+    //     comments: data.comments,
+    //     users: data.users
+    //   });
+    // });
+    this.setState({
+      name: 'My Card ' + this.props.key
     });
   },
 
   render: function() {
-
+    var view;
+    var buttonName;
+    if (this.state.editView) {
+      view = <form>
+        Enter Card Name:
+        <input type='text'
+               value={this.props.name}
+               onChange={this.updateName} />
+        <textarea name='content' value={this.props.content} onChange={this.updateContent}/>
+        <textarea name='comments' value={this.props.comments} />
+      </form>;
+      buttonName = 'Done';
+    } else {
+      view = <div>
+        <h3>{this.state.name}</h3>
+        <p>{this.state.content}</p>
+        <p>{this.state.comments.length}</p>
+      </div>
+      buttonName = 'Edit';
+    }
     return (
       <div>
-        <h3>{this.props.name}</h3>
-        <p>{this.props.content}</p>
-        <p>{this.props.colors}</p>
-        <p>{this.props.comments}</p>
-        <p>{this.props.users}</p>
-        <p>{this.props.columnId}</p>
+        {view}
+        <button onClick={this.toggleCardView}>{buttonName}</button>
       </div>
     );
   }
