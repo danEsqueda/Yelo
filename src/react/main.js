@@ -9,15 +9,15 @@ var Main = React.createClass({
     };
   },
 
-  /*handleLogin: function() {
+  handleBoardList: function() {
       this.setState({
-        currentlyShowing: <BoardList />
+        currentlyShowing: <BoardList handleBoard={this.handleBoard} />
       })
-  },*/
+  },
 
   handleBoard: function(key) {
       this.setState({
-        currentlyShowing: <Board key={key} _id={key} />
+        currentlyShowing: <Board key={key} _id={key} handleBoardList={this.handleBoardList}/>
       })
   },
 

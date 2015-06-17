@@ -42,6 +42,7 @@ var Board = React.createClass({
 
     return (
       <div>
+        <button onClick={this.props.handleBoardList}>Return To Board List</button>
         <p>{this.state.name}</p>
         {columnList}
       </div>
