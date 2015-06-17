@@ -22,14 +22,21 @@ module.exports = function(app, mongoURL, database, callback) {
       });
 
       app.get('/boards/:id', function(req, res) {
-        Board.get(req.params.id, function(err, doc) {
-          if (err) { res.status(500).send('Database Error'); }
-          else { res.status(200).send(doc); }
-        });  
+        if(req.accepts(['text/html', 'application/json']) == 'text/html') {
+          //serve static template?
+        } else if (req.accepts(['text/html', 'application/json']) == 'application/json') {
+          Board.get(req.params.id, function(err, doc) {
+            if (err) { res.status(500).send('Database Error'); }
+            else { res.status(200).send(doc); }
+          });
+
+        } else {
+          res.sendStatus(406);
+        }
       });
 
       app.post('/boards', function(req, res) {
-        var hash = { name: 'default board name' };
+        var hash = { name: req.body.name };
         Board.create(hash, function(err, doc) {
           if (err) { res.status(500).send('Database Error'); }
           else { res.status(201).send(doc._doc); }
