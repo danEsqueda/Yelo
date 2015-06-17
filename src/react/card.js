@@ -19,7 +19,7 @@ var Card = React.createClass({
   },
 
   colorToggled: function(active, color) {
-    if (active) {
+    if (active === false) {
       this.setState({
         colors: this.state.colors.concat([color])
       });
