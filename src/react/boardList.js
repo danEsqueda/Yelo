@@ -1,8 +1,10 @@
-var mockBoards = [{key:1, name: 'firstBoard'}, {key:2, name: 'secondBoard'}];
+//var mockBoards = [{key:1, name: 'firstBoard'}, {key:2, name: 'secondBoard'}];
 
 var React = require('react');
 
 var $ = require('jquery');
+
+var Board = require('./board');
 
 var BoardList = React.createClass({
   getInitialState: function() {
@@ -13,17 +15,16 @@ var BoardList = React.createClass({
 
   componentDidMount: function() {
     var _this = this;
-    $.get(/*'/boards/'*/null, function(err, data) {
-      if(err) {console.log('theres been an error')};
+    $.get('/boards', function(data, status) {
       _this.setState({
-        boards: mockBoards
+        boards: data
       })
     })
   },
 
   render: function() {
     var boardList = this.state.boards.map(function(board) {
-      return <li><a href={'/boards/' + board.key}>{board.name}</a></li>
+      return <li key={board._id}><a href={'/boards/' + board._id}>{board.name}</a></li>
     });
 
     return (
