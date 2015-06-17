@@ -19,7 +19,7 @@ var ColorBox = React.createClass({
     return(
       <div onClick={this.handleActivation}
                     className={this.props.color +
-                      this.state.active ? ' activeColor': ''}></div>
+                      (this.state.active ? ' activeColor': '')}></div>
     )
   }
 });
