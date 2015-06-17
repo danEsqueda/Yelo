@@ -13,7 +13,8 @@ var App = React.createClass({
       pageToShow:
       <div className='splash'>
         <Splash />
-        <button onClick={this.showBoards}>Board Selected</button>
+        <User />
+        <button onClick={this.showBoards}>Show Boards</button>
       </div>
     }
   },
@@ -25,14 +26,6 @@ var App = React.createClass({
   },
 
   render: function() {
-    // var loggedIn = true;
-    // var pageToShow;
-    // if (loggedIn) {
-      // pageToShow = <Main />
-    // }
-    // else {
-      // pageToShow = <User />
-    // }
     return (
       <main>
         {this.state.pageToShow}
