@@ -56,7 +56,7 @@ var Card = React.createClass({
 
   handleAddComment: function(e) {
     e.preventDefault();
-    var newComment = this.refs.newComment.findDOMNode().value;
+    var newComment = this.refs.newComment.getDOMNode().value;
     this.setState({
       comments: this.state.comments.concat([newComment])
     });
@@ -82,6 +82,7 @@ var Card = React.createClass({
         comments: data.comments,
         users: data.users
       });
+      console.log(data.users);
     }.bind(this));
   },
 
