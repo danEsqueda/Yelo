@@ -11,6 +11,7 @@ var Card = React.createClass({
       content: '',
       colors: [],
       comments: [],
+      newComment: '',
       users: [],
       boardUsers: [],
       editView: false,
@@ -111,13 +112,18 @@ var Card = React.createClass({
     });
   },
 
+  handleNewComment: function(e) {
+    this.setState({
+      newComment: e.target.value,
+    });
+  },
+
   handleAddComment: function(e) {
     e.preventDefault();
-    var newComment = this.refs.newComment.getDOMNode().value;
     this.setState({
-      comments: this.state.comments.concat([newComment])
+      comments: this.state.comments.concat([this.state.newComment]),
+      newComment: '',
     });
-    this.refs.newComment.getDOMNode().value = '';
   },
 
   handleColors: function(e) {
@@ -237,7 +243,7 @@ var Card = React.createClass({
         Colors: {clickColors}
         Users: {clickUsers}
         Comments:
-        <textarea name='comments' value={this.props.comments} ref='newComment' />
+        <textarea placeholder="Add comment..." value={this.state.newComment} onChange={this.handleNewComment} />
         <button onClick={this.handleAddComment}>Add</button>
         {coms}
       </form>;
