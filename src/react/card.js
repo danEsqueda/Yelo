@@ -120,10 +120,32 @@ var Card = React.createClass({
 
   handleAddComment: function(e) {
     e.preventDefault();
-    this.setState({
-      comments: this.state.comments.concat([this.state.newComment]),
-      newComment: '',
+
+    var newComments = this.state.comments.concat([this.state.newComment]);
+
+    var newCard = {
+      name: this.state.name,
+      content: this.state.content,
+      users: this.state.users.map(function(user) {
+        return user._id
+      }),
+      comments: newComments,
+      colors: this.state.colors,
+    };
+
+    $.ajax({
+      method: 'PUT',
+      data: JSON.stringify(newCard),
+      contentType: 'application/json',
+      url: '/cards/' + this.props._id,
+      success: function(data, status, xhr) {
+        this.setState({ comments: newComments, newComment: ''});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in PUT /cards/' + this.props._id);
+      }.bind(this),
     });
+
   },
 
   handleColors: function(e) {
