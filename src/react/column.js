@@ -29,7 +29,7 @@ var Column = React.createClass({
   render: function() {
 
     var cardList = this.state.cards.map(function(card) {
-      return <Card key={card} _id={card} />
+      return <Card key={card} _id={card} boardUsers=this.props.boardUsers />
     });
 
     return (

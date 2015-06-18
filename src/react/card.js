@@ -1,6 +1,7 @@
 var React = require('react');
 var $ = require('jquery');
 var ColorBox = require('./colorbox')
+var UserSummaryList = require('./userSummaryList')
 
 var Card = React.createClass({
   getInitialState: function() {
@@ -10,6 +11,7 @@ var Card = React.createClass({
       colors: [],
       comments: [],
       users: [],
+      boardUsers: [],
       editView: false,
       contentButton: 'Save',
       contentView: <textarea name='content'
@@ -32,9 +34,9 @@ var Card = React.createClass({
         colors: newColors
       });
     }
-
-
   },
+
+
 
   toggleCardView: function() {
     this.setState({
@@ -111,6 +113,8 @@ var Card = React.createClass({
     var buttonName;
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
+    var availableUsers =
+
     var clickColors = setColors.map(function(setColor) {
       var active = false;
       for (var i = 0; i < this.state.colors.length; i++) {
@@ -154,7 +158,7 @@ var Card = React.createClass({
         <h3>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
-        {users}
+        <UserSummaryList />
       </div>
       buttonName = 'Edit';
     }
