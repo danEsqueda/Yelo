@@ -29,8 +29,8 @@ var Column = React.createClass({
   render: function() {
 
     var cardList = this.state.cards.map(function(card) {
-      return <Card key={card} _id={card} /*boardUsers={this.props.boardUsers}*/ />
-    });
+      return <Card key={card} _id={card} boardUsers={this.props.boardUsers} />
+    }.bind(this));
 
     return (
       <div className='column'>

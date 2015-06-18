@@ -1,7 +1,7 @@
 var React = require('react');
 var $ = require('jquery');
-var ColorBox = require('./colorbox')
-var UserSummaryList = require('./userSummaryList')
+var ColorBox = require('./colorbox');
+var UserSummaryList = require('./userSummaryList');
 
 var Card = React.createClass({
   getInitialState: function() {
@@ -70,23 +70,37 @@ var Card = React.createClass({
     this.setState({
       colors: this.state.colors.concat([e.target.className])
     });
-    console.log(e.target.class);
-    console.log(e.target.className);
 
   },
 
-  // componentDidMount: function() {
-  //   $.get('/cards/' + this.props._id, function(data, status) {
-  //     this.setState({
-  //       name: data.name,
-  //       content: data.content,
-  //       colors: data.colors,
-  //       comments: data.comments,
-  //       users: data.users
-  //     });
-  //     console.log(data.users);
-  //   }.bind(this));
-  // },
+  componentDidMount: function() {
+    $.get('/cards/' + this.props._id, function(data, status) {
+
+      this.setState({
+        name: data.name,
+        content: data.content,
+        colors: data.colors,
+        comments: data.comments,
+      });
+
+      data.users.forEach(function(id) {
+        $.get('/users/' + id, function(userData, status) {
+          this.setState({
+            users: this.state.users.concat([userData])
+          });
+        }.bind(this));
+      }.bind(this));
+
+      this.props.boardUsers.forEach(function(id) {
+        $.get('/users/' + id, function(userData, status) {
+          this.setState({
+            boardUsers: this.state.boardUsers.concat([userData])
+          });
+        }.bind(this));
+      }.bind(this));
+
+    }.bind(this));
+  },
 
   toggleContent: function(e) {
     e.preventDefault();
@@ -118,7 +132,6 @@ var Card = React.createClass({
     var summaryUsers = this.state.users.map(function(user) {
       return <UserSummaryList userInitials={user.fullName.replace(/[^A-Z]/g, '')} />
     });
-
 
     var clickColors = setColors.map(function(setColor) {
       var active = false;
