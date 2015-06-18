@@ -188,7 +188,7 @@ var Card = React.createClass({
       view = <form>
         Enter Card Name:
         <input type='text'
-               value={this.props.name}
+               value={this.state.name}
                onChange={this.updateName} />
         Card Content:
         {this.state.contentView}
