@@ -158,7 +158,7 @@ var Card = React.createClass({
       buttonName = 'Edit';
     }
     return (
-      <div>
+      <div className='card'>
         {view}
         <button onClick={this.toggleCardView}>{buttonName}</button>
       </div>
