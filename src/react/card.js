@@ -111,7 +111,14 @@ var Card = React.createClass({
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
     var clickColors = setColors.map(function(setColor) {
-      return <ColorBox colorToggled={this.colorToggled} color={setColor} />
+      var active = false;
+      for (var i = 0; i < this.state.colors.length; i++) {
+        if (setColor === this.state.colors[i]) {
+          active = true;
+          break;
+        }
+      }
+      return <ColorBox colorToggled={this.colorToggled} color={setColor} initialActive={active} />
     }.bind(this));
 
     var coms = this.state.comments.map(function(comment) {
@@ -144,7 +151,7 @@ var Card = React.createClass({
     } else {
       view = <div>
         <h3>{this.state.name}</h3>
-        {clickColors}
+        {summaryColors}
         <p>{this.state.comments.length} comments</p>
         {users}
       </div>

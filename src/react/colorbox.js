@@ -4,15 +4,16 @@ var ColorBox = React.createClass({
 
   getInitialState: function() {
     return {
-      active: false
+      active: this.props.initialActive
     }
   },
 
   handleActivation: function() {
+    this.props.colorToggled(!this.state.active, this.props.color);
     this.setState({
       active: !this.state.active
     });
-    this.props.colorToggled(this.state.active, this.props.color);
+
   },
 
   render: function() {
