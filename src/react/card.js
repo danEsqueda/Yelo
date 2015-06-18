@@ -33,10 +33,12 @@ var Card = React.createClass({
     }
 
     var newCard = {
-      name: this.props.name,
-      content: this.props.content,
-      users: this.props.users,
-      comments: this.props.comments,
+      name: this.state.name,
+      content: this.state.content,
+      users: this.state.users.map(function(user) {
+        return user._id
+      }),
+      comments: this.state.comments,
       colors: newColors,
     };
 
@@ -55,18 +57,38 @@ var Card = React.createClass({
   },
 
   userToggled: function(active, newUser) {
+    var newUsers;
+
     if (active) {
-      this.setState({
-        users: this.state.users.concat([newUser])
-      });
+      newUsers = this.state.users.concat([newUser])
     } else {
-      var selectedUsers = this.state.users.filter(function(user) {
+      newUsers = this.state.users.filter(function(user) {
         return user !== newUser
       });
-      this.setState({
-        users: selectedUsers
-      });
     }
+
+    var newCard = {
+      name: this.state.name,
+      content: this.state.content,
+      users: newUsers.map(function(user) {
+        return user._id
+      }),
+      comments: this.state.comments,
+      colors: this.state.colors,
+    };
+
+    $.ajax({
+      method: 'PUT',
+      data: JSON.stringify(newCard),
+      contentType: 'application/json',
+      url: '/cards/' + this.props._id,
+      success: function(data, status, xhr) {
+        this.setState({ users: newUsers });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in PUT /cards/' + this.props._id);
+      }.bind(this),
+    });
   },
 
 
@@ -119,7 +141,7 @@ var Card = React.createClass({
       data.users.forEach(function(id) {
         $.get('/users/' + id, function(userData, status) {
           this.setState({
-            users: this.state.users.concat([userData.fullName])
+            users: this.state.users.concat([userData])
           });
         }.bind(this));
       }.bind(this));
@@ -127,7 +149,7 @@ var Card = React.createClass({
       this.props.boardUsers.forEach(function(id) {
         $.get('/users/' + id, function(userData, status) {
           this.setState({
-            boardUsers: this.state.boardUsers.concat([userData.fullName])
+            boardUsers: this.state.boardUsers.concat([userData])
           });
         }.bind(this));
       }.bind(this));
@@ -163,7 +185,7 @@ var Card = React.createClass({
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
     var summaryUsers = this.state.users.map(function(user) {
-      return <UserSummaryList userInitials={user.replace(/[^A-Z]/g, '')} />
+      return <UserSummaryList userInitials={user.fullName.replace(/[^A-Z]/g, '')} />
     }.bind(this));
 
     var clickColors = setColors.map(function(setColor) {
@@ -181,13 +203,14 @@ var Card = React.createClass({
       var active = false;
       for (var i = 0; i < this.state.users.length; i++) {
 
-        if (boardUser === this.state.users[i]) {
+        if (boardUser._id === this.state.users[i]._id) {
           active = true;
           break;
         }
       }
       return <ChooseUserBox userToggled={this.userToggled}
                             user={boardUser}
+                            userName={boardUser.fullName}
                             initialActive={active}
                             className={boardUser.fullName + (active ? ' activeUser': '')} />
     }.bind(this));
