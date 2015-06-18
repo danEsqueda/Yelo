@@ -1,7 +1,7 @@
 var React = require('react');
 var $ = require('jquery');
 var ColorBox = require('./colorbox')
-var UserSummaryList = require('./userSummaryList')
+//var UserSummaryList = require('./userSummaryList')
 
 var Card = React.createClass({
   getInitialState: function() {
@@ -77,14 +77,30 @@ var Card = React.createClass({
 
   componentDidMount: function() {
     $.get('/cards/' + this.props._id, function(data, status) {
+
       this.setState({
         name: data.name,
         content: data.content,
         colors: data.colors,
         comments: data.comments,
-        users: data.users
       });
-      console.log(data.users);
+      
+      data.users.forEach(function(id) {
+        $.get('/users/' + id, function(userData, status) {
+          this.setState({
+            users: this.state.users.concat([userData])
+          });
+        }.bind(this));
+      }.bind(this));
+      
+      this.props.boardUsers.forEach(function(id) {
+        $.get('/users/' + id, function(userData, status) {
+          this.setState({
+            boardUsers: this.state.boardUsers.concat([userData])
+          });            
+        }.bind(this));
+      }.bind(this));
+
     }.bind(this));
   },
 
@@ -112,8 +128,6 @@ var Card = React.createClass({
     var view;
     var buttonName;
     var setColors = ['blue', 'green', 'red', 'yellow'];
-
-    var availableUsers =
 
     var clickColors = setColors.map(function(setColor) {
       var active = false;
@@ -158,7 +172,6 @@ var Card = React.createClass({
         <h3>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
-        <UserSummaryList />
       </div>
       buttonName = 'Edit';
     }
