@@ -16,9 +16,6 @@ var Card = React.createClass({
       boardUsers: [],
       editView: false,
       contentButton: 'Save',
-      contentView: <textarea name='content'
-                             value={this.props.content}
-                             onChange={this.updateContent}/>
     };
   },
 
@@ -187,23 +184,64 @@ var Card = React.createClass({
 
   toggleContent: function(e) {
     e.preventDefault();
+
     if (this.state.contentButton === 'Save') {
 
-      this.setState({
-        contentView: this.state.content,
-        contentButton: 'Edit'
+
+      var newCard = {
+        name: this.state.name,
+        content: this.state.content,
+        users: this.state.users.map(function(user) {
+          return user._id
+        }),
+        comments: this.state.comments,
+        colors: this.state.colors,
+      };
+
+      $.ajax({
+        method: 'PUT',
+        data: JSON.stringify(newCard),
+        contentType: 'application/json',
+        url: '/cards/' + this.props._id,
+        success: function(data, status, xhr) {
+          this.setState({ contentButton: 'Edit' });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error('ERROR in PUT /cards/' + this.props._id);
+        }.bind(this),
       });
+
     } else {
       this.setState({
-        contentView: <textarea name='content'
-                               defaultValue={this.state.content}
-                               value={this.props.content}
-                               onChange={this.updateContent}/>,
         contentButton: 'Save'
       });
     }
 
   },
+
+  putName: function() {
+     var newCard = {
+        name: this.state.name,
+        content: this.state.content,
+        users: this.state.users.map(function(user) {
+          return user._id
+        }),
+        comments: this.state.comments,
+        colors: this.state.colors,
+      };
+
+      $.ajax({
+        method: 'PUT',
+        data: JSON.stringify(newCard),
+        contentType: 'application/json',
+        url: '/cards/' + this.props._id,
+        success: function(data, status, xhr) {
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error('ERROR in PUT /cards/' + this.props._id);
+        }.bind(this),
+      });
+    },
 
 
 
@@ -257,9 +295,12 @@ var Card = React.createClass({
         Enter Card Name:
         <input type='text'
                value={this.state.name}
-               onChange={this.updateName} />
+               onChange={this.updateName}
+               onBlur={this.putName} />
         Card Content:
-        {this.state.contentView}
+        {(this.state.contentButton === 'Save') ? <textarea name='content'
+                             value={this.state.content}
+                             onChange={this.updateContent}/> : <div>{this.state.content}</div>}
         <button onClick={this.toggleContent}>{this.state.contentButton}</button>
 
         Colors: {clickColors}
