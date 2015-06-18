@@ -10,9 +10,9 @@ var App = React.createClass({
   // TODO: Hookup the check to see if user is authenticated
   getInitialState: function() {
     return {
-      user: null,
+      user: 'loggedin',
       boards: [],
-      currentBoard: null,
+      currentBoard: 'No Boards',
       pageToShow:
       <div className='splash'>
         <Splash />
