@@ -22,19 +22,36 @@ var Card = React.createClass({
   },
 
   colorToggled: function(active, color) {
+    var newColors;
 
     if (active) {
-      this.setState({
-        colors: this.state.colors.concat([color])
-      });
+      newColors = this.state.colors.concat([color]);
     } else {
-      var newColors = this.state.colors.filter(function(element) {
+      newColors = this.state.colors.filter(function(element) {
         return element !== color
       });
-      this.setState({
-        colors: newColors
-      });
     }
+
+    var newCard = {
+      name: this.props.name,
+      content: this.props.content,
+      users: this.props.users,
+      comments: this.props.comments,
+      colors: newColors,
+    };
+
+    $.ajax({
+      method: 'PUT',
+      data: JSON.stringify(newCard),
+      contentType: 'application/json',
+      url: '/cards/' + this.props._id,
+      success: function(data, status, xhr) {
+        this.setState({ colors: newColors });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in PUT /cards/' + this.props._id);
+      }.bind(this),
+    });
   },
 
   userToggled: function(active, newUser) {
@@ -188,7 +205,7 @@ var Card = React.createClass({
       view = <form>
         Enter Card Name:
         <input type='text'
-               value={this.props.name}
+               value={this.state.name}
                onChange={this.updateName} />
         Card Content:
         {this.state.contentView}
