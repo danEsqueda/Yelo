@@ -2,6 +2,7 @@ var React = require('react');
 var $ = require('jquery');
 var ColorBox = require('./colorbox');
 var UserSummaryList = require('./userSummaryList');
+var ChooseUserBox = require('./userbox');
 
 var Card = React.createClass({
   getInitialState: function() {
@@ -32,6 +33,21 @@ var Card = React.createClass({
       });
       this.setState({
         colors: newColors
+      });
+    }
+  },
+
+  userToggled: function(active, newUser) {
+    if (active) {
+      this.setState({
+        users: this.state.users.concat([newUser])
+      });
+    } else {
+      var selectedUsers = this.state.users.filter(function(user) {
+        return user !== newUser
+      });
+      this.setState({
+        users: selectedUsers
       });
     }
   },
@@ -86,7 +102,7 @@ var Card = React.createClass({
       data.users.forEach(function(id) {
         $.get('/users/' + id, function(userData, status) {
           this.setState({
-            users: this.state.users.concat([userData])
+            users: this.state.users.concat([userData.fullName])
           });
         }.bind(this));
       }.bind(this));
@@ -94,7 +110,7 @@ var Card = React.createClass({
       this.props.boardUsers.forEach(function(id) {
         $.get('/users/' + id, function(userData, status) {
           this.setState({
-            boardUsers: this.state.boardUsers.concat([userData])
+            boardUsers: this.state.boardUsers.concat([userData.fullName])
           });
         }.bind(this));
       }.bind(this));
@@ -130,8 +146,8 @@ var Card = React.createClass({
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
     var summaryUsers = this.state.users.map(function(user) {
-      return <UserSummaryList userInitials={user.fullName.replace(/[^A-Z]/g, '')} />
-    });
+      return <UserSummaryList userInitials={user.replace(/[^A-Z]/g, '')} />
+    }.bind(this));
 
     var clickColors = setColors.map(function(setColor) {
       var active = false;
@@ -142,6 +158,21 @@ var Card = React.createClass({
         }
       }
       return <ColorBox colorToggled={this.colorToggled} color={setColor} initialActive={active} />
+    }.bind(this));
+
+    var clickUsers = this.state.boardUsers.map(function(boardUser) {
+      var active = false;
+      for (var i = 0; i < this.state.users.length; i++) {
+
+        if (boardUser === this.state.users[i]) {
+          active = true;
+          break;
+        }
+      }
+      return <ChooseUserBox userToggled={this.userToggled}
+                            user={boardUser}
+                            initialActive={active}
+                            className={boardUser.fullName + (active ? ' activeUser': '')} />
     }.bind(this));
 
     var coms = this.state.comments.map(function(comment) {
@@ -164,7 +195,7 @@ var Card = React.createClass({
         <button onClick={this.toggleContent}>{this.state.contentButton}</button>
 
         Colors: {clickColors}
-
+        Users: {clickUsers}
         Comments:
         <textarea name='comments' value={this.props.comments} ref='newComment' />
         <button onClick={this.handleAddComment}>Add</button>
