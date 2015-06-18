@@ -1,10 +1,15 @@
 var React = require('react');
-var UserBox = require('./userbox');
 
 var UserSummaryList = React.createClass({
+
   render: function() {
+
+
+
     return (
-      <UserBox />
+      <div className='summaryInitials'>{this.props.userInitials}</div>
     )
   }
 });
+
+module.exports = UserSummaryList;

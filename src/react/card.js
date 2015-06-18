@@ -75,18 +75,18 @@ var Card = React.createClass({
 
   },
 
-  componentDidMount: function() {
-    $.get('/cards/' + this.props._id, function(data, status) {
-      this.setState({
-        name: data.name,
-        content: data.content,
-        colors: data.colors,
-        comments: data.comments,
-        users: data.users
-      });
-      console.log(data.users);
-    }.bind(this));
-  },
+  // componentDidMount: function() {
+  //   $.get('/cards/' + this.props._id, function(data, status) {
+  //     this.setState({
+  //       name: data.name,
+  //       content: data.content,
+  //       colors: data.colors,
+  //       comments: data.comments,
+  //       users: data.users
+  //     });
+  //     console.log(data.users);
+  //   }.bind(this));
+  // },
 
   toggleContent: function(e) {
     e.preventDefault();
@@ -108,12 +108,17 @@ var Card = React.createClass({
 
   },
 
+
+
   render: function() {
     var view;
     var buttonName;
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
-    var availableUsers =
+    var summaryUsers = this.state.users.map(function(user) {
+      return <UserSummaryList userInitials={user.fullName.replace(/[^A-Z]/g, '')} />
+    });
+
 
     var clickColors = setColors.map(function(setColor) {
       var active = false;
@@ -158,7 +163,7 @@ var Card = React.createClass({
         <h3>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
-        <UserSummaryList />
+        {summaryUsers}
       </div>
       buttonName = 'Edit';
     }
