@@ -1,6 +1,8 @@
 var React = require('react');
 var $ = require('jquery');
-var ColorBox = require('./colorbox')
+var ColorBox = require('./colorbox');
+var UserSummaryList = require('./userSummaryList');
+var ChooseUserBox = require('./userbox');
 
 var Card = React.createClass({
   getInitialState: function() {
@@ -10,6 +12,7 @@ var Card = React.createClass({
       colors: [],
       comments: [],
       users: [],
+      boardUsers: [],
       editView: false,
       contentButton: 'Save',
       contentView: <textarea name='content'
@@ -32,9 +35,24 @@ var Card = React.createClass({
         colors: newColors
       });
     }
-
-
   },
+
+  userToggled: function(active, newUser) {
+    if (active) {
+      this.setState({
+        users: this.state.users.concat([newUser])
+      });
+    } else {
+      var selectedUsers = this.state.users.filter(function(user) {
+        return user !== newUser
+      });
+      this.setState({
+        users: selectedUsers
+      });
+    }
+  },
+
+
 
   toggleCardView: function() {
     this.setState({
@@ -68,21 +86,35 @@ var Card = React.createClass({
     this.setState({
       colors: this.state.colors.concat([e.target.className])
     });
-    console.log(e.target.class);
-    console.log(e.target.className);
 
   },
 
   componentDidMount: function() {
     $.get('/cards/' + this.props._id, function(data, status) {
+
       this.setState({
         name: data.name,
         content: data.content,
         colors: data.colors,
         comments: data.comments,
-        users: data.users
       });
-      console.log(data.users);
+
+      data.users.forEach(function(id) {
+        $.get('/users/' + id, function(userData, status) {
+          this.setState({
+            users: this.state.users.concat([userData.fullName])
+          });
+        }.bind(this));
+      }.bind(this));
+
+      this.props.boardUsers.forEach(function(id) {
+        $.get('/users/' + id, function(userData, status) {
+          this.setState({
+            boardUsers: this.state.boardUsers.concat([userData.fullName])
+          });
+        }.bind(this));
+      }.bind(this));
+
     }.bind(this));
   },
 
@@ -106,10 +138,16 @@ var Card = React.createClass({
 
   },
 
+
+
   render: function() {
     var view;
     var buttonName;
     var setColors = ['blue', 'green', 'red', 'yellow'];
+
+    var summaryUsers = this.state.users.map(function(user) {
+      return <UserSummaryList userInitials={user.replace(/[^A-Z]/g, '')} />
+    }.bind(this));
 
     var clickColors = setColors.map(function(setColor) {
       var active = false;
@@ -120,6 +158,21 @@ var Card = React.createClass({
         }
       }
       return <ColorBox colorToggled={this.colorToggled} color={setColor} initialActive={active} />
+    }.bind(this));
+
+    var clickUsers = this.state.boardUsers.map(function(boardUser) {
+      var active = false;
+      for (var i = 0; i < this.state.users.length; i++) {
+
+        if (boardUser === this.state.users[i]) {
+          active = true;
+          break;
+        }
+      }
+      return <ChooseUserBox userToggled={this.userToggled}
+                            user={boardUser}
+                            initialActive={active}
+                            className={boardUser.fullName + (active ? ' activeUser': '')} />
     }.bind(this));
 
     var coms = this.state.comments.map(function(comment) {
@@ -142,7 +195,7 @@ var Card = React.createClass({
         <button onClick={this.toggleContent}>{this.state.contentButton}</button>
 
         Colors: {clickColors}
-
+        Users: {clickUsers}
         Comments:
         <textarea name='comments' value={this.props.comments} ref='newComment' />
         <button onClick={this.handleAddComment}>Add</button>
@@ -154,7 +207,7 @@ var Card = React.createClass({
         <h3>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
-        {users}
+        {summaryUsers}
       </div>
       buttonName = 'Edit';
     }
