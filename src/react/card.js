@@ -19,7 +19,8 @@ var Card = React.createClass({
   },
 
   colorToggled: function(active, color) {
-    if (active === false) {
+
+    if (active) {
       this.setState({
         colors: this.state.colors.concat([color])
       });
@@ -31,6 +32,7 @@ var Card = React.createClass({
         colors: newColors
       });
     }
+
 
   },
 
@@ -106,7 +108,6 @@ var Card = React.createClass({
   render: function() {
     var view;
     var buttonName;
-    var light;
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
     var clickColors = setColors.map(function(setColor) {
@@ -143,7 +144,7 @@ var Card = React.createClass({
     } else {
       view = <div>
         <h3>{this.state.name}</h3>
-        {summaryColors}
+        {clickColors}
         <p>{this.state.comments.length} comments</p>
         {users}
       </div>
