@@ -191,4 +191,39 @@ html {
 *, *::after, *::before {
   box-sizing: inherit; }
 
+header #header {
+  padding: 0.25em;
+  background-color: #333;
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  header #header::after {
+    clear: both;
+    content: "";
+    display: table; }
+  header #header div {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 31.76157%; }
+    header #header div:last-child {
+      margin-right: 0; }
+  header #header #headline {
+    color: #fc6;
+    text-align: center;
+    font-size: 1.5em; }
+  header #header button {
+    background-color: #fc6;
+    color: #333;
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal; }
+  header #header #user {
+    text-align: right; }
+  header #header #boards {
+    text-align: left; }
+
 /*# sourceMappingURL=application.css.map */

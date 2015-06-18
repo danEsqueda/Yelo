@@ -10,6 +10,9 @@ var App = React.createClass({
   // TODO: Hookup the check to see if user is authenticated
   getInitialState: function() {
     return {
+      user: 'loggedin',
+      boards: [],
+      currentBoard: 'No Boards',
       pageToShow:
       <div className='splash'>
         <Splash />
@@ -27,6 +30,9 @@ var App = React.createClass({
   render: function() {
     return (
       <main>
+        <Header user={this.state.user}
+                boards={this.state.boards}
+                currentBoard={this.state.currentBoard} />
         {this.state.pageToShow}
       </main>
     );

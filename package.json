@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha test/*_test.js",
     "build": "browserify src/react/app.js -o public/bundle.js",
-    "server": "node src/server/server"
+    "server": "node src/server/server",
+    "sass": "sass --watch src/stylesheets/application.css.sass:public/css/application.css"
   },
   "repository": {
     "type": "git",

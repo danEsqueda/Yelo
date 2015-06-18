@@ -3,9 +3,13 @@ var React = require('react');
 var Header = React.createClass({
   render: function() {
     return (
-      <div>
-        <h3>Put HEADER here</h3>
-      </div>
+      <header>
+        <div id="header">
+          <div id="boards"><button>{this.props.currentBoard}</button></div>
+          <div id="headline">Yelo</div>
+          <div id="user"><button>{this.props.user}</button></div>
+        </div>
+      </header>
     );
   }
 });
