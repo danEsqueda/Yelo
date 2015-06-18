@@ -63,7 +63,7 @@ var Card = React.createClass({
       newUsers = this.state.users.concat([newUser])
     } else {
       newUsers = this.state.users.filter(function(user) {
-        return user !== newUser
+        return user._id !== newUser._id;
       });
     }
 
