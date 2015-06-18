@@ -1,2 +1,8 @@
 node_modules
 public/bundle.js
+.sass-cache/
+public/css/application.css.map
+src/stylesheets/base/
+src/stylesheets/bourbon/
+src/stylesheets/bower_components/
+src/stylesheets/neat/
