@@ -22,17 +22,10 @@ module.exports = function(app, mongoURL, database, callback) {
       });
 
       app.get('/boards/:id', function(req, res) {
-        if(req.accepts(['text/html', 'application/json']) == 'text/html') {
-          //serve static template?
-        } else if (req.accepts(['text/html', 'application/json']) == 'application/json') {
-          Board.get(req.params.id, function(err, doc) {
-            if (err) { res.status(500).send('Database Error'); }
-            else { res.status(200).send(doc); }
-          });
-
-        } else {
-          res.sendStatus(406);
-        }
+        Board.get(req.params.id, function(err, doc) {
+          if (err) { res.status(500).send('Database Error'); }
+          else { res.status(200).send(doc); }
+        });
       });
 
       app.post('/boards', function(req, res) {
