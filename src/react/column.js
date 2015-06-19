@@ -26,6 +26,51 @@ var Column = React.createClass({
 
   },
 
+  handleAddCard: function() {
+    var newCard = {
+      name: '',
+      content: '',
+      users: [],
+      comments: [],
+      colors: [],
+    };
+
+    $.ajax({
+      method: 'POST',
+      data: JSON.stringify(newCard),
+      contentType: 'application/json',
+      url: '/cards/',
+      success: function(data, status, xhr) {
+        this.setState({
+          cards: this.state.cards.concat([data._id])
+        });
+        this.updateColumn();
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in POST /cards/');
+      }.bind(this),
+    });
+  },
+
+  updateColumn: function() {
+    var changeColumn = {
+      name: this.state.name,
+      cards: this.state.cards
+    }
+
+    $.ajax({
+      method: 'PUT',
+      data: JSON.stringify(changeColumn),
+      contentType: 'application/json',
+      url: '/columns/' + this.props._id,
+      success: function(data, status, xhr) {
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in POST /cards/');
+      }.bind(this),
+    });
+  },
+
   render: function() {
 
     var cardList = this.state.cards.map(function(card) {
@@ -36,6 +81,7 @@ var Column = React.createClass({
       <div className='column'>
         <p>{this.state.name}</p>
         {cardList}
+        <button onClick={this.handleAddCard}>Add Card</button>
       </div>
     );
   }
