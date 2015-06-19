@@ -33,6 +33,8 @@ var Board = React.createClass({
   removeForeignCard: function(cardId, columnIndex) {
     this.refs[columnIndex].removeCard(cardId);
     this.refs[columnIndex].forceUpdate();
+    this.refs[columnIndex].updateColumn();
+    
   },
 
   render: function() {

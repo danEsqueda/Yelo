@@ -4,7 +4,7 @@ var ChooseUserBox = React.createClass({
 
   getInitialState: function() {
     return {
-      initial: this.props.initialActive
+      active: this.props.initialActive
     }
   },
 
@@ -18,7 +18,7 @@ var ChooseUserBox = React.createClass({
   render: function() {
     return (
       <div onClick={this.handleActivation}
-                    className={this.props.className}>{this.props.user}</div>
+                    className={this.props.className}>{this.props.userName}</div>
     )
   }
 

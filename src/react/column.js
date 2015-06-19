@@ -40,10 +40,13 @@ var Column = React.createClass({
       this.setState({
         cards: [data._id].concat(this.state.cards)
       });
+      this.updateColumn();
+
     } else if(data.cardIndex !== 0) {
       this.removeCard(data._id);
       this.state.cards.splice(0, 0, data._id);
       this.forceUpdate();
+      this.updateColumn();
     }
   },
 
@@ -64,10 +67,56 @@ var Column = React.createClass({
     }
     this.state.cards.splice(slot, 0, data._id);
     this.forceUpdate();
+    this.updateColumn();
   },
 
   dragOver: function(e) {
     e.preventDefault();
+  },
+  
+  handleAddCard: function() {
+    var newCard = {
+      name: '',
+      content: '',
+      users: [],
+      comments: [],
+      colors: [],
+    };
+
+    $.ajax({
+      method: 'POST',
+      data: JSON.stringify(newCard),
+      contentType: 'application/json',
+      url: '/cards/',
+      success: function(data, status, xhr) {
+        this.setState({
+          cards: this.state.cards.concat([data._id])
+        });
+        this.updateColumn();
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in POST /cards/');
+      }.bind(this),
+    });
+  },
+
+  updateColumn: function() {
+    var changeColumn = {
+      name: this.state.name,
+      cards: this.state.cards
+    }
+
+    $.ajax({
+      method: 'PUT',
+      data: JSON.stringify(changeColumn),
+      contentType: 'application/json',
+      url: '/columns/' + this.props._id,
+      success: function(data, status, xhr) {
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in POST /cards/');
+      }.bind(this),
+    });
   },
 
   render: function() {
@@ -88,6 +137,7 @@ var Column = React.createClass({
       <div className='column' onDragOver={this.dragOver} onDrop={this.columnDrop} >
         <p>{this.state.name}</p>
         {cardList}
+        <button onClick={this.handleAddCard}>Add Card</button>
       </div>
     );
   }
