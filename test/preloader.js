@@ -229,6 +229,8 @@ Q()
 .then(function(cardDocs) {
   columns = columns.map(function(column, index) {
     column.cards.unshift(cardDocs[index]._id);
+    column.cards.unshift(cardDocs[(index + 1) % cardDocs.length]._id);
+    column.cards.unshift(cardDocs[(index + 2) % cardDocs.length]._id);
     return column;
   });
   return Q.nfbind(createColumns)(columns);
