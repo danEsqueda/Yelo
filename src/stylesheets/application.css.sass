@@ -51,6 +51,8 @@ body
   @include outer-container
   #column-container
     .column
+      @include border-left-radius($rounded-radius)
+      @include border-right-radius($rounded-radius)
       text-align: left
       @include span-columns(3)
       @include omega(4n)
@@ -61,6 +63,8 @@ body
         text-align: center
         font-weight: bold
       .card
+        @include border-left-radius($rounded-radius)
+        @include border-right-radius($rounded-radius)
         margin: .5em
         padding: .5em
         background-color: $yellow

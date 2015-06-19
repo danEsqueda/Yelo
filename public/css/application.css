@@ -248,6 +248,10 @@ body {
     content: "";
     display: table; }
   #board #column-container .column {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
     text-align: left;
     float: left;
     display: block;
@@ -266,6 +270,10 @@ body {
       text-align: center;
       font-weight: bold; }
     #board #column-container .column .card {
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
       margin: 0.5em;
       padding: 0.5em;
       background-color: #fc6;
