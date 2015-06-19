@@ -27,9 +27,9 @@ var Main = React.createClass({
     return (
       <div>
         <div className={this.props.showBoardList ? '' : 'hidden'}>
-          <BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
-        </div>
+//          <BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
           {this.state.currentlyShowing}
+        </div>
       </div>
     );
   }

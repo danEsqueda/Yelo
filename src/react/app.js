@@ -66,13 +66,6 @@ var App = React.createClass({
     })
   },
 
-  handleBoard: function(key) {
-      this.setState({
-        currentlyShowing: <Board key={key} _id={key} handleBoardList={this.handleBoardList}/>
-      })
-      this.handleBoardName(key)
-  },
-
   render: function() {
     return (
       <main>

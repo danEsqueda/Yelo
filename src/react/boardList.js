@@ -13,9 +13,8 @@ var BoardList = React.createClass({
   },
 
   componentDidMount: function() {
-    var _this = this;
     $.get('/boards', function(data, status) {
-      _this.setState({
+      this.setState({
         boards: data
       })
       this.props.handleBoardLoad(data)
