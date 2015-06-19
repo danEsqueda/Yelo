@@ -217,7 +217,7 @@ var Card = React.createClass({
     }
 
   },
-  
+
   cardDrop: function(e) {
     var data = JSON.parse(e.dataTransfer.getData('application/json'));
     if(data._id === this.props._id) {

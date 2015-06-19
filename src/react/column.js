@@ -18,12 +18,6 @@ var Column = React.createClass({
       });
     }.bind(this));
 
-    //TEST DATA
-    // this.setState({
-      // name: 'My new column!',
-      // cards: [1,2],
-    // });
-
   },
 
   removeCard: function(cardId) {
@@ -73,7 +67,7 @@ var Column = React.createClass({
   dragOver: function(e) {
     e.preventDefault();
   },
-  
+
   handleAddCard: function() {
     var newCard = {
       name: '',
