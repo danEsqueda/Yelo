@@ -372,6 +372,10 @@ body {
   margin-top: 5px;
 }
 
+.summaryname {
+  font-weight: bold;
+}
+
 .entername {
   margin: 5px;
 }
@@ -390,6 +394,10 @@ body {
 
 .commentbutton {
   margin-bottom: 5px;
+}
+
+.editbutton {
+  margin-top: 5px;
 }
 
 /*# sourceMappingURL=application.css.map */

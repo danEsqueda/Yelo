@@ -340,13 +340,13 @@ var Card = React.createClass({
         draggable='true'
         onDragStart={this.dragStart}
         onDrop={this.cardDrop}>
-        <h3>{this.state.name}</h3>
+        <h3 className='summaryname'>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
         <div>
           {summaryUsers}
         </div>
-        <button onClick={this.toggleCardView}>Edit</button>
+        <button className='editbutton' onClick={this.toggleCardView}>Edit</button>
       </div>
     }
     return (
