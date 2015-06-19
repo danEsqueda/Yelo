@@ -14,6 +14,7 @@ var App = React.createClass({
     return {
       user: 'Log in!',
       currentBoard: 'No Boards',
+      boards: [],
       shouldHide: true,
       pageToShow:
       <div className='splash'>
