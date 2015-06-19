@@ -89,9 +89,8 @@ var Card = React.createClass({
     });
   },
 
-
-
-  toggleCardView: function() {
+  toggleCardView: function(e) {
+    e.preventDefault();
     this.setState({
       editView: !this.state.editView
     });
@@ -218,6 +217,21 @@ var Card = React.createClass({
     }
 
   },
+  
+  cardDrop: function(e) {
+    var data = JSON.parse(e.dataTransfer.getData('application/json'));
+    if(data._id === this.props._id) {
+      console.log('same card!')
+    } else {
+      this.props.cardInsert(e, data, this.props.index)
+    }
+    e.stopPropagation();
+  },
+
+  dragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('application/json', JSON.stringify({_id: this.props._id, cardIndex: this.props.index, columnIndex: this.props.parentIndex}));
+  },
 
   putName: function() {
      var newCard = {
@@ -243,11 +257,8 @@ var Card = React.createClass({
       });
     },
 
-
-
   render: function() {
     var view;
-    var buttonName;
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
     var summaryUsers = this.state.users.map(function(user) {
@@ -309,21 +320,23 @@ var Card = React.createClass({
         <textarea placeholder="Add comment..." value={this.state.newComment} onChange={this.handleNewComment} />
         <button onClick={this.handleAddComment}>Add</button>
         {coms}
+        <button onClick={this.toggleCardView}>Done</button>
       </form>;
-      buttonName = 'Done';
     } else {
-      view = <div>
+      view = <div
+        draggable='true'
+        onDragStart={this.dragStart}
+        onDrop={this.cardDrop}>
         <h3>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
         {summaryUsers}
+        <button onClick={this.toggleCardView}>Edit</button>
       </div>
-      buttonName = 'Edit';
     }
     return (
       <div className='card'>
         {view}
-        <button onClick={this.toggleCardView}>{buttonName}</button>
       </div>
     );
   }

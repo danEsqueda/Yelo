@@ -29,13 +29,26 @@ var Board = React.createClass({
     // });
 
   },
+  
+  removeForeignCard: function(cardId, columnIndex) {
+    this.refs[columnIndex].removeCard(cardId);
+    this.refs[columnIndex].forceUpdate();
+    this.refs[columnIndex].updateColumn();
+    
+  },
 
   render: function() {
 
-    var columnList = this.state.columns.map(function(column) {
+    var columnList = this.state.columns.map(function(column, index) {
       return (
         <div key={column} className='board' className='grid_3'>
-          <Column key={column} _id={column} boardUsers={this.state.users} />
+          <Column
+            key={column}
+            ref={index}
+            _id={column}
+            index={index}
+            removeForeignCard={this.removeForeignCard}
+            boardUsers={this.state.users} />
         </div>
       )
     }.bind(this));
