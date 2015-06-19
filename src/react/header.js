@@ -6,7 +6,7 @@ var Header = React.createClass({
     return (
       <header>
         <div id="header">
-          <div id="boards"><button onClick={this.props.boardListToggle}>{this.props.currentBoard}</button></div>
+          <div id="boards"><button onClick={console.log('placeholder')}>{this.props.currentBoard}</button></div>
           <div id="headline">Yelo</div>
           <div id="user"><button>{this.props.user}</button></div>
         </div>

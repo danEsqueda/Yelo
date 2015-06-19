@@ -37,20 +37,11 @@ var Main = React.createClass({
       this.props.handleBoardName(key)
   },
 
-  boardListToggle: function() {
-    this.setState({
-      showBoardList: !this.state.showBoardList,
-      pageToShow: null//<Main showBoardList={!this.state.showBoardList} handleBoardName={this.props.handleBoardName} handleBoardLoad={this.props.handleBoardLoad} />
-
-    })
-  },
-
   render: function() {
 
     return (
       <div>
-        <div className={this.props.showBoardList ? '' : 'hidden'}>
-//          <BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
+        <div>
           {this.state.currentlyShowing}
         </div>
       </div>

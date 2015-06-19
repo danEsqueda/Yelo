@@ -53,7 +53,7 @@ var App = React.createClass({
 
   showBoards: function() {
     this.setState({
-      pageToShow: <Main showBoardList={this.state.showBoardList} handleBoardName={this.handleBoardName} handleBoardLoad={this.handleBoardLoad} />
+      pageToShow: <Main handleBoardName={this.handleBoardName} handleBoardLoad={this.handleBoardLoad} />
     });
   },
 
@@ -62,7 +62,6 @@ var App = React.createClass({
       <main>
         <Header user={this.state.user}
                 boards={this.state.boards}
-                boardListToggle={this.boardListToggle}
                 currentBoard={this.state.currentBoard} />
         {this.state.pageToShow}
 
