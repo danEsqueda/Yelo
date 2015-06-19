@@ -2,14 +2,18 @@
 @import "base/base"
 @import "neat/neat"
 
+$black: #111
 $dark-grey: #333
+$medium-grey: #555
+$grey: #777
 $light-grey: #999
 $yellow: #fc6
+$rounded-radius: 5px
 
 header
   #header
     padding: .25em
-    background-color: $dark-grey
+    background-color: $medium-grey
     @include outer-container
 
     div
@@ -31,3 +35,41 @@ header
     #boards
       text-align: left
 
+body
+  background-color: $dark-grey
+  color: $yellow
+  text-align: center
+#board
+  margin-top: .5em
+  text-align: center
+  font-weight: bold
+  button
+    background-color: $grey
+    color: $yellow
+  button:hover
+    background-color: $black
+  @include outer-container
+  #column-container
+    .column
+      text-align: left
+      @include span-columns(3)
+      @include omega(4n)
+      background-color: $medium-grey
+      color: $yellow
+      .column-header
+        padding: .5em
+        text-align: center
+        font-weight: bold
+      .card
+        margin: .5em
+        padding: .5em
+        background-color: $yellow
+        color: $dark-grey
+
+.activeColor
+  border-style: solid
+  border-color: black
+
+.activeUser
+  border-style: solid
+  border-color: black

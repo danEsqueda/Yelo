@@ -193,7 +193,7 @@ html {
 
 header #header {
   padding: 0.25em;
-  background-color: #333;
+  background-color: #555;
   max-width: 68em;
   margin-left: auto;
   margin-right: auto; }
@@ -225,5 +225,58 @@ header #header {
     text-align: right; }
   header #header #boards {
     text-align: left; }
+
+body {
+  background-color: #333;
+  color: #fc6;
+  text-align: center; }
+
+#board {
+  margin-top: 0.5em;
+  text-align: center;
+  font-weight: bold;
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  #board button {
+    background-color: #777;
+    color: #fc6; }
+  #board button:hover {
+    background-color: #111; }
+  #board::after {
+    clear: both;
+    content: "";
+    display: table; }
+  #board #column-container .column {
+    text-align: left;
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%;
+    background-color: #555;
+    color: #fc6; }
+    #board #column-container .column:last-child {
+      margin-right: 0; }
+    #board #column-container .column:nth-child(4n) {
+      margin-right: 0; }
+    #board #column-container .column:nth-child(4n+1) {
+      clear: left; }
+    #board #column-container .column .column-header {
+      padding: 0.5em;
+      text-align: center;
+      font-weight: bold; }
+    #board #column-container .column .card {
+      margin: 0.5em;
+      padding: 0.5em;
+      background-color: #fc6;
+      color: #333; }
+
+.activeColor {
+  border-style: solid;
+  border-color: black; }
+
+.activeUser {
+  border-style: solid;
+  border-color: black; }
 
 /*# sourceMappingURL=application.css.map */
