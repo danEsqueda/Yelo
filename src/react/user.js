@@ -37,20 +37,12 @@ var User = React.createClass({
   },
   render: function() {
     return (
-      <div>
-      <table id="splashtable">
-        <tr className="splashtd">
-          <td className="splashtd">Username:</td>
-          <td className="splashtd"><input type="text" name="username" onChange={this.handleChangeUsername}/></td>
-        </tr>
-        <tr className="splashtd">
-          <td className="splashtd">Password:</td>
-          <td className="splashtd"><input type="password" name="password" onChange={this.handleChangePassword}/></td>
-        </tr>
-        <tr className="splashtd"><td className="splashtd"><span className="message">{this.state.message}</span></td><td>
-          <button id="splashbutton" onClick={this.handleLogin}>Login</button></td></tr>
-      </table>
-      <p><a href="#" id="splasha">Register for an account</a></p>
+      <div id='login-form'>
+        <form>
+          <input type="text" name="username" placeholder="Username" onChange={this.handleChangeUsername} />
+          <input type="text" name="password" placeholder="Password" onChange={this.handleChangePassword} />
+          <input type="submit" value="Log In" onClick={function(event) { event.preventDefault(); this.handleLogin(); }.bind(this)}/>
+        </form>
       </div>
     );
   }

@@ -39,15 +39,15 @@ body
   background-color: $dark-grey
   color: $yellow
   text-align: center
-#board
-  margin-top: .5em
-  text-align: center
-  font-weight: bold
   button
     background-color: $grey
     color: $yellow
   button:hover
     background-color: $black
+#board
+  margin-top: .5em
+  text-align: center
+  font-weight: bold
   @include outer-container
   #column-container
     .column
@@ -65,6 +65,19 @@ body
         padding: .5em
         background-color: $yellow
         color: $dark-grey
+
+#login-form
+  @include outer-container
+  form
+    @include span-columns(6)
+    @include shift(3)
+    input
+      color: $black
+    input[type="submit"]
+      background-color: $yellow
+      color: $dark-grey
+    input[type="submit"]:hover
+      background-color: $light-grey
 
 .activeColor
   border-style: solid

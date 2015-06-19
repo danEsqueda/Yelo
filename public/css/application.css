@@ -230,6 +230,11 @@ body {
   background-color: #333;
   color: #fc6;
   text-align: center; }
+  body button {
+    background-color: #777;
+    color: #fc6; }
+  body button:hover {
+    background-color: #111; }
 
 #board {
   margin-top: 0.5em;
@@ -238,11 +243,6 @@ body {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto; }
-  #board button {
-    background-color: #777;
-    color: #fc6; }
-  #board button:hover {
-    background-color: #111; }
   #board::after {
     clear: both;
     content: "";
@@ -270,6 +270,30 @@ body {
       padding: 0.5em;
       background-color: #fc6;
       color: #333; }
+
+#login-form {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  #login-form::after {
+    clear: both;
+    content: "";
+    display: table; }
+  #login-form form {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    margin-left: 25.58941%; }
+    #login-form form:last-child {
+      margin-right: 0; }
+    #login-form form input {
+      color: #111; }
+    #login-form form input[type="submit"] {
+      background-color: #fc6;
+      color: #333; }
+    #login-form form input[type="submit"]:hover {
+      background-color: #999; }
 
 .activeColor {
   border-style: solid;
