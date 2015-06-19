@@ -20,14 +20,28 @@ var Board = React.createClass({
         users: data.users
       });
     }.bind(this));
+  },
 
-    //TEST DATA
-    // this.setState({
-      // name: 'My new board!',
-      // columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
-      // users: [1]
-    // });
+  handleAddColumn: function(e) {
+    var newColumn = {
+      name: '',
+      cards: []
+    };
 
+    $.ajax({
+      method: 'POST',
+      data: JSON.stringify(newColumn),
+      contentType: 'application/json',
+      url: '/columns/',
+      success: function(data, status, xhr) {
+        this.setState({
+          columns: this.state.columns.concat([data._id])
+        })
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in POST /columns/');
+      }.bind(this),
+    });
   },
 
   render: function() {
@@ -40,13 +54,11 @@ var Board = React.createClass({
       )
     }.bind(this));
 
-    //var boardID = this.props._id;
-    //boardID
-
     return (
       <div>
         <button onClick={this.props.handleBoardList}>Return To Board List</button>
         <p>{this.state.name}
+        <button onClick={this.handleAddColumn}>Add Column</button>
         </p>
         {columnList}
       </div>
