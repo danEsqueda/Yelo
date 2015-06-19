@@ -193,7 +193,7 @@ html {
 
 header #header {
   padding: 0.25em;
-  background-color: #333;
+  background-color: #555;
   max-width: 68em;
   margin-left: auto;
   margin-right: auto; }
@@ -225,5 +225,134 @@ header #header {
     text-align: right; }
   header #header #boards {
     text-align: left; }
+
+body {
+  background-color: #333;
+  color: #fc6;
+  text-align: center; }
+  body button {
+    background-color: #777;
+    color: #fc6; }
+  body button:hover {
+    background-color: #111; }
+
+#board {
+  margin-top: 0.5em;
+  text-align: center;
+  font-weight: bold;
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  #board::after {
+    clear: both;
+    content: "";
+    display: table; }
+  #board #column-container .column {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    text-align: left;
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 23.23176%;
+    background-color: #555;
+    color: #fc6; }
+    #board #column-container .column:last-child {
+      margin-right: 0; }
+    #board #column-container .column:nth-child(4n) {
+      margin-right: 0; }
+    #board #column-container .column:nth-child(4n+1) {
+      clear: left; }
+    #board #column-container .column .column-header {
+      padding: 0.5em;
+      text-align: center;
+      font-weight: bold; }
+    #board #column-container .column .card {
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+      margin: 0.5em;
+      padding: 0.5em;
+      background-color: #fc6;
+      color: #333; }
+
+#login-form {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  #login-form::after {
+    clear: both;
+    content: "";
+    display: table; }
+  #login-form form {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    margin-left: 25.58941%; }
+    #login-form form:last-child {
+      margin-right: 0; }
+    #login-form form input {
+      color: #111; }
+    #login-form form input[type="submit"] {
+      background-color: #fc6;
+      color: #333; }
+    #login-form form input[type="submit"]:hover {
+      background-color: #999; }
+
+#create-board {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px; }
+  #create-board::after {
+    clear: both;
+    content: "";
+    display: table; }
+  #create-board form {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    margin-left: 25.58941%; }
+    #create-board form:last-child {
+      margin-right: 0; }
+    #create-board form input {
+      color: #111; }
+
+.board-list-container button {
+  margin: 0.25em; }
+
+.summaryInitials {
+  display: inline-block;
+  padding-right: 0.5em; }
+
+.red, .green, .yellow, .blue {
+  width: 20px;
+  height: 20px;
+  display: inline-block; }
+
+.red {
+  background-color: red; }
+
+.green {
+  background-color: green; }
+
+.yellow {
+  background-color: yellow; }
+
+.blue {
+  background-color: blue; }
+
+.activeColor {
+  border-style: solid;
+  border-color: black; }
+
+.activeUser {
+  border-style: solid;
+  border-color: black; }
 
 /*# sourceMappingURL=application.css.map */

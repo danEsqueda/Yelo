@@ -26,6 +26,10 @@
 }*/
 
 .hidden {
+  display: none;
+}
+
+img {
   display:none;
 }
 
@@ -82,10 +86,6 @@
 
 .board {
   background-color: lightblue;
-}
-
-.column {
-  background-color: lightgreen;
 }
 
 .red {

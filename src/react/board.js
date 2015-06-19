@@ -8,7 +8,6 @@ var Board = React.createClass({
       name: '',
       columns: [],
       users: [],
-
     };
   },
 
@@ -43,24 +42,36 @@ var Board = React.createClass({
       }.bind(this),
     });
   },
-
+  
+  removeForeignCard: function(cardId, columnIndex) {
+    this.refs[columnIndex].removeCard(cardId);
+    this.refs[columnIndex].forceUpdate();
+    this.refs[columnIndex].updateColumn();
+  },
+  
   render: function() {
 
-    var columnList = this.state.columns.map(function(column) {
+    var columnList = this.state.columns.map(function(column, index) {
       return (
-        <div key={column} className='board' className='grid_3'>
-          <Column key={column} _id={column} boardUsers={this.state.users} />
-        </div>
+        <Column 
+            key={column}
+            ref={index}
+            _id={column}
+            index={index}
+            removeForeignCard={this.removeForeignCard}
+            boardUsers={this.state.users} />
       )
     }.bind(this));
 
     return (
-      <div>
+      <div id="board">
         <button onClick={this.props.handleBoardList}>Return To Board List</button>
         <p>{this.state.name}
         <button onClick={this.handleAddColumn}>Add Column</button>
         </p>
-        {columnList}
+        <div id="column-container">
+          {columnList}
+        </div>
       </div>
     );
   }

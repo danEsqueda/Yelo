@@ -2,14 +2,18 @@
 @import "base/base"
 @import "neat/neat"
 
+$black: #111
 $dark-grey: #333
+$medium-grey: #555
+$grey: #777
 $light-grey: #999
 $yellow: #fc6
+$rounded-radius: 5px
 
 header
   #header
     padding: .25em
-    background-color: $dark-grey
+    background-color: $medium-grey
     @include outer-container
 
     div
@@ -31,3 +35,94 @@ header
     #boards
       text-align: left
 
+body
+  background-color: $dark-grey
+  color: $yellow
+  text-align: center
+  button
+    background-color: $grey
+    color: $yellow
+  button:hover
+    background-color: $black
+#board
+  margin-top: .5em
+  text-align: center
+  font-weight: bold
+  @include outer-container
+  #column-container
+    .column
+      @include border-left-radius($rounded-radius)
+      @include border-right-radius($rounded-radius)
+      text-align: left
+      @include span-columns(3)
+      @include omega(4n)
+      background-color: $medium-grey
+      color: $yellow
+      .column-header
+        padding: .5em
+        text-align: center
+        font-weight: bold
+      .card
+        @include border-left-radius($rounded-radius)
+        @include border-right-radius($rounded-radius)
+        margin: .5em
+        padding: .5em
+        background-color: $yellow
+        color: $dark-grey
+
+#login-form
+  @include outer-container
+  form
+    @include span-columns(6)
+    @include shift(3)
+    input
+      color: $black
+    input[type="submit"]
+      background-color: $yellow
+      color: $dark-grey
+    input[type="submit"]:hover
+      background-color: $light-grey
+
+#create-board
+  @include outer-container
+  form
+    @include span-columns(6)
+    @include shift(3)
+    input
+      color: $black
+  width: 250px
+
+.board-list-container
+  button
+    margin: .25em
+
+.summaryInitials
+  display: inline-block
+  padding-right: .5em
+
+.red, .green, .yellow, .blue
+  width: 20px
+  height: 20px
+  display: inline-block  
+
+.red
+  background-color: red
+
+.green
+  background-color: green
+
+.yellow
+  background-color: yellow
+
+.blue
+  background-color: blue
+
+
+
+.activeColor
+  border-style: solid
+  border-color: black
+
+.activeUser
+  border-style: solid
+  border-color: black

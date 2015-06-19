@@ -13,11 +13,11 @@ var BoardList = React.createClass({
   },
 
   componentDidMount: function() {
-    var _this = this;
     $.get('/boards', function(data, status) {
-      _this.setState({
+      this.setState({
         boards: data
       })
+      this.props.handleBoardLoad(data)
     }.bind(this))
   },
 
@@ -62,52 +62,6 @@ var BoardList = React.createClass({
     })
   },
 
-  updateBoardName: function(e) {
-    this.setState({
-      boardName: e.target.value
-    })
-  },
-
-  addBoard: function() {
-    $.ajax({
-      url:'/boards',
-      type:'POST',
-      data:JSON.stringify({name: this.state.boardName}),
-      contentType: 'application/json',
-      success: function(data) {
-        this.setState({
-          boards: this.state.boards.concat([data]),
-          boardName: ''
-        })
-      }.bind(this),
-      error: function(err) {
-        console.log(err)
-      }
-
-    })
-  },
-
-  deleteBoard: function(key) {
-    $.ajax({
-      url: '/boards/' + key,
-      type: 'DELETE',
-      success: function(result) {
-        console.log(result);
-        this.setState({
-          boards: this.state.boards.filter(function(board) { return board._id !== key })
-        })
-      }.bind(this),
-      error: function(err) {
-        console.log(err)
-      }
-    })
-  },
-
-  /*handleClick: function(e) {
-    console.log('clicked ' + e.target.key);
-    this.props.handleBoard(e.target.key);
-  },*/
-
   render: function() {
     var boardList = this.state.boards.map(function(board) {
       return <div key={board._id}>
@@ -117,9 +71,9 @@ var BoardList = React.createClass({
     }.bind(this));
 
     return (
-      <div>
+      <div className='board-list-container'>
         {boardList}
-        <input type='text' value={this.state.boardName} onChange={this.updateBoardName}></input>
+        <input id='create-board' type='text' placeholder='New Board Name' value={this.state.boardName} onChange={this.updateBoardName}></input>
         <button onClick={this.addBoard}>Create Board</button>
       </div>
     )
