@@ -4,8 +4,8 @@ var Splash = React.createClass({
   render: function() {
     return (
       <div className='splash'>
-        <img src='https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcST98GEo__nU9M-ct5ETQyea18V7XhIA6DoVxILyxkNg5wxUVGq' />
-        <h2>Free. Functional. Anything else?</h2>
+        <img id="splashimg" src='https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcST98GEo__nU9M-ct5ETQyea18V7XhIA6DoVxILyxkNg5wxUVGq' />
+        <h2 id="splashh2">Free. Functional. Anything else?</h2>
       </div>
     )
   }

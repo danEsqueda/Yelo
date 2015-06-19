@@ -13,6 +13,7 @@ var App = React.createClass({
       user: 'loggedin',
       boards: [],
       currentBoard: 'No Boards',
+      shouldHide: true,
       pageToShow:
       <div className='splash'>
         <Splash />
@@ -23,7 +24,8 @@ var App = React.createClass({
 
   showBoards: function() {
     this.setState({
-      pageToShow: <Main />
+      pageToShow: <Main />,
+      shouldHide: false
     });
   },
 
@@ -32,7 +34,8 @@ var App = React.createClass({
       <main>
         <Header user={this.state.user}
                 boards={this.state.boards}
-                currentBoard={this.state.currentBoard} />
+                currentBoard={this.state.currentBoard}
+                shouldHide = {this.state.shouldHide} />
         {this.state.pageToShow}
       </main>
     );
