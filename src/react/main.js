@@ -5,8 +5,23 @@ var BoardList = require('./boardList');
 var Main = React.createClass({
   getInitialState: function() {
     return {
-      currentlyShowing: <BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
+      currentlyShowing: null,//<BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
+      showBoardList: true
     };
+  },
+
+  componentDidMount: function() {
+    $.get('/boards', function(data, status) {
+      /*this.setState({
+        boards: data
+      })*/
+      this.props.handleBoardLoad(data)
+      if(data.length > 0) {
+        this.handleBoard(data[0]._id)
+      } else {
+        this.handleBoardList()
+      }
+    }.bind(this))
   },
 
   handleBoardList: function() {
@@ -20,6 +35,14 @@ var Main = React.createClass({
         currentlyShowing: <Board key={key} _id={key} handleBoardList={this.handleBoardList}/>
       })
       this.props.handleBoardName(key)
+  },
+
+  boardListToggle: function() {
+    this.setState({
+      showBoardList: !this.state.showBoardList,
+      pageToShow: null//<Main showBoardList={!this.state.showBoardList} handleBoardName={this.props.handleBoardName} handleBoardLoad={this.props.handleBoardLoad} />
+
+    })
   },
 
   render: function() {

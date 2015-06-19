@@ -13,9 +13,8 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       user: 'Log in!',
-      boards: [],
       currentBoard: 'No Boards',
-      showBoardList: true,
+      boards: [],
       pageToShow:
       <div className='splash'>
         <Splash />
@@ -56,14 +55,6 @@ var App = React.createClass({
     this.setState({
       pageToShow: <Main showBoardList={this.state.showBoardList} handleBoardName={this.handleBoardName} handleBoardLoad={this.handleBoardLoad} />
     });
-  },
-
-  boardListToggle: function() {
-    this.setState({
-      showBoardList: !this.state.showBoardList,
-      pageToShow: <Main showBoardList={!this.state.showBoardList} handleBoardName={this.handleBoardName} handleBoardLoad={this.handleBoardLoad} />
-
-    })
   },
 
   render: function() {
