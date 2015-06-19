@@ -64,7 +64,6 @@ var App = React.createClass({
                 boards={this.state.boards}
                 currentBoard={this.state.currentBoard} />
         {this.state.pageToShow}
-
       </main>
     );
   }

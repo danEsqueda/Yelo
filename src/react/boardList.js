@@ -18,9 +18,6 @@ var BoardList = React.createClass({
         boards: data
       })
       this.props.handleBoardLoad(data)
-      if(data.length > 0) {
-        this.props.handleBoard(data[0]._id)
-      }
     }.bind(this))
   },
 
@@ -74,7 +71,7 @@ var BoardList = React.createClass({
     }.bind(this));
 
     return (
-      <div className='hidden'>
+      <div>
         {boardList}
         <input type='text' value={this.state.boardName} onChange={this.updateBoardName}></input>
         <button onClick={this.addBoard}>Create Board</button>
