@@ -136,8 +136,8 @@ var Column = React.createClass({
     return (
       <div className='column' onDragOver={this.dragOver} onDrop={this.columnDrop} >
         <p>{this.state.name}</p>
-        {cardList}
         <button onClick={this.handleAddCard}>Add Card</button>
+        {cardList}
       </div>
     );
   }
