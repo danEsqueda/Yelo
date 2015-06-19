@@ -9,8 +9,29 @@ var Main = React.createClass({
     };
   },
 
-  handleAddColumn: function() {
-    console.log('get to main line 13');
+  handleAddColumn: function(boardID) {
+    console.log(boardID);
+
+    var newColumn = {
+      name: '',
+      cards: []
+    };
+
+    $.ajax({
+      method: 'POST',
+      data: JSON.stringify(newColumn),
+      contentType: 'application/json',
+      url: '/columns/',
+      success: function(data, status, xhr) {
+        this.setState({
+          //columns: this.state.columns.concat([data._id])
+        });
+        //this.updateBoard();
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in POST /columns/');
+      }.bind(this),
+    });
   },
 
   handleBoardList: function() {
