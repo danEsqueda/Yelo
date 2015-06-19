@@ -313,8 +313,9 @@ var Card = React.createClass({
                              value={this.state.content}
                              onChange={this.updateContent}/> : <div>{this.state.content}</div>}
         <button onClick={this.toggleContent}>{this.state.contentButton}</button>
-
-        Colors: {clickColors}
+        <div>
+          Colors: {clickColors}
+        </div>
         Users: {clickUsers}
         Comments:
         <textarea placeholder="Add comment..." value={this.state.newComment} onChange={this.handleNewComment} />
@@ -330,7 +331,9 @@ var Card = React.createClass({
         <h3>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
-        {summaryUsers}
+        <div>
+          {summaryUsers}
+        </div>
         <button onClick={this.toggleCardView}>Edit</button>
       </div>
     }

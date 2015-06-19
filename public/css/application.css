@@ -303,24 +303,25 @@ body {
     #login-form form input[type="submit"]:hover {
       background-color: #999; }
 
-.red {
+.summaryInitials {
+  display: inline-block;
+  padding-right: 0.5em; }
+
+.red, .green, .yellow, .blue {
   width: 20px;
   height: 20px;
+  display: inline-block; }
+
+.red {
   background-color: red; }
 
 .green {
-  width: 20px;
-  height: 20px;
   background-color: green; }
 
 .yellow {
-  width: 20px;
-  height: 20px;
   background-color: yellow; }
 
 .blue {
-  width: 20px;
-  height: 20px;
   background-color: blue; }
 
 .activeColor {
