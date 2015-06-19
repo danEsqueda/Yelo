@@ -336,15 +336,19 @@ body {
   display: inline-block; }
 
 .red {
+  margin-left: 10px;
   background-color: red; }
 
 .green {
+  margin-left: 10px;
   background-color: green; }
 
 .yellow {
+  margin-left: 10px;
   background-color: yellow; }
 
 .blue {
+  margin-left: 10px;
   background-color: blue; }
 
 .activeColor {
@@ -354,5 +358,38 @@ body {
 .activeUser {
   border-style: solid;
   border-color: black; }
+
+.content {
+  margin: 5px;
+  margin-bottom: 15px;
+}
+
+.doneContent {
+  margin-bottom: 15px
+}
+
+.contentinput {
+  margin-top: 5px;
+}
+
+.entername {
+  margin: 5px;
+}
+
+.nameinput {
+  margin-top: 5px;
+}
+
+.entercomments {
+  margin: 5px;
+}
+
+.commentsinput {
+  margin-top: 5px;
+}
+
+.commentbutton {
+  margin-bottom: 5px;
+}
 
 /*# sourceMappingURL=application.css.map */
