@@ -303,6 +303,29 @@ body {
     #login-form form input[type="submit"]:hover {
       background-color: #999; }
 
+#create-board {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px; }
+  #create-board::after {
+    clear: both;
+    content: "";
+    display: table; }
+  #create-board form {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    margin-left: 25.58941%; }
+    #create-board form:last-child {
+      margin-right: 0; }
+    #create-board form input {
+      color: #111; }
+
+.board-list-container button {
+  margin: 0.25em; }
+
 .summaryInitials {
   display: inline-block;
   padding-right: 0.5em; }
