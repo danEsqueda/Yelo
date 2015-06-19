@@ -10,6 +10,20 @@ var Main = React.createClass({
     };
   },
 
+  componentDidMount: function() {
+    $.get('/boards', function(data, status) {
+      /*this.setState({
+        boards: data
+      })*/
+      this.props.handleBoardLoad(data)
+      if(data.length > 0) {
+        this.handleBoard(data[0]._id)
+      } else {
+        this.handleBoardList()
+      }
+    }.bind(this))
+  },
+
   handleBoardList: function() {
       this.setState({
         currentlyShowing: <BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
