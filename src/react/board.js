@@ -40,10 +40,14 @@ var Board = React.createClass({
       )
     }.bind(this));
 
+    //var boardID = this.props._id;
+    //boardID
+
     return (
       <div>
         <button onClick={this.props.handleBoardList}>Return To Board List</button>
-        <p>{this.state.name}</p>
+        <p>{this.state.name}
+        </p>
         {columnList}
       </div>
     );

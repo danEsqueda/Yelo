@@ -11,50 +11,86 @@ var Card = React.createClass({
       content: '',
       colors: [],
       comments: [],
+      newComment: '',
       users: [],
       boardUsers: [],
       editView: false,
       contentButton: 'Save',
-      contentView: <textarea name='content'
-                             value={this.props.content}
-                             onChange={this.updateContent}/>
     };
   },
 
   colorToggled: function(active, color) {
+    var newColors;
 
     if (active) {
-      this.setState({
-        colors: this.state.colors.concat([color])
-      });
+      newColors = this.state.colors.concat([color]);
     } else {
-      var newColors = this.state.colors.filter(function(element) {
+      newColors = this.state.colors.filter(function(element) {
         return element !== color
       });
-      this.setState({
-        colors: newColors
-      });
     }
+
+    var newCard = {
+      name: this.state.name,
+      content: this.state.content,
+      users: this.state.users.map(function(user) {
+        return user._id
+      }),
+      comments: this.state.comments,
+      colors: newColors,
+    };
+
+    $.ajax({
+      method: 'PUT',
+      data: JSON.stringify(newCard),
+      contentType: 'application/json',
+      url: '/cards/' + this.props._id,
+      success: function(data, status, xhr) {
+        this.setState({ colors: newColors });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in PUT /cards/' + this.props._id);
+      }.bind(this),
+    });
   },
 
   userToggled: function(active, newUser) {
+    var newUsers;
+
     if (active) {
-      this.setState({
-        users: this.state.users.concat([newUser])
-      });
+      newUsers = this.state.users.concat([newUser])
     } else {
-      var selectedUsers = this.state.users.filter(function(user) {
-        return user !== newUser
-      });
-      this.setState({
-        users: selectedUsers
+      newUsers = this.state.users.filter(function(user) {
+        return user._id !== newUser._id;
       });
     }
+
+    var newCard = {
+      name: this.state.name,
+      content: this.state.content,
+      users: newUsers.map(function(user) {
+        return user._id
+      }),
+      comments: this.state.comments,
+      colors: this.state.colors,
+    };
+
+    $.ajax({
+      method: 'PUT',
+      data: JSON.stringify(newCard),
+      contentType: 'application/json',
+      url: '/cards/' + this.props._id,
+      success: function(data, status, xhr) {
+        this.setState({ users: newUsers });
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in PUT /cards/' + this.props._id);
+      }.bind(this),
+    });
   },
 
-
-
-  toggleCardView: function() {
+  toggleCardView: function(e) {
+    e.preventDefault();
     this.setState({
       editView: !this.state.editView
     });
@@ -72,13 +108,40 @@ var Card = React.createClass({
     });
   },
 
+  handleNewComment: function(e) {
+    this.setState({
+      newComment: e.target.value,
+    });
+  },
+
   handleAddComment: function(e) {
     e.preventDefault();
-    var newComment = this.refs.newComment.getDOMNode().value;
-    this.setState({
-      comments: this.state.comments.concat([newComment])
+
+    var newComments = this.state.comments.concat([this.state.newComment]);
+
+    var newCard = {
+      name: this.state.name,
+      content: this.state.content,
+      users: this.state.users.map(function(user) {
+        return user._id
+      }),
+      comments: newComments,
+      colors: this.state.colors,
+    };
+
+    $.ajax({
+      method: 'PUT',
+      data: JSON.stringify(newCard),
+      contentType: 'application/json',
+      url: '/cards/' + this.props._id,
+      success: function(data, status, xhr) {
+        this.setState({ comments: newComments, newComment: ''});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error('ERROR in PUT /cards/' + this.props._id);
+      }.bind(this),
     });
-    this.refs.newComment.getDOMNode().value = '';
+
   },
 
   handleColors: function(e) {
@@ -102,7 +165,7 @@ var Card = React.createClass({
       data.users.forEach(function(id) {
         $.get('/users/' + id, function(userData, status) {
           this.setState({
-            users: this.state.users.concat([userData.fullName])
+            users: this.state.users.concat([userData])
           });
         }.bind(this));
       }.bind(this));
@@ -110,7 +173,7 @@ var Card = React.createClass({
       this.props.boardUsers.forEach(function(id) {
         $.get('/users/' + id, function(userData, status) {
           this.setState({
-            boardUsers: this.state.boardUsers.concat([userData.fullName])
+            boardUsers: this.state.boardUsers.concat([userData])
           });
         }.bind(this));
       }.bind(this));
@@ -120,33 +183,86 @@ var Card = React.createClass({
 
   toggleContent: function(e) {
     e.preventDefault();
+
     if (this.state.contentButton === 'Save') {
 
-      this.setState({
-        contentView: this.state.content,
-        contentButton: 'Edit'
+
+      var newCard = {
+        name: this.state.name,
+        content: this.state.content,
+        users: this.state.users.map(function(user) {
+          return user._id
+        }),
+        comments: this.state.comments,
+        colors: this.state.colors,
+      };
+
+      $.ajax({
+        method: 'PUT',
+        data: JSON.stringify(newCard),
+        contentType: 'application/json',
+        url: '/cards/' + this.props._id,
+        success: function(data, status, xhr) {
+          this.setState({ contentButton: 'Edit' });
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error('ERROR in PUT /cards/' + this.props._id);
+        }.bind(this),
       });
+
     } else {
       this.setState({
-        contentView: <textarea name='content'
-                               defaultValue={this.state.content}
-                               value={this.props.content}
-                               onChange={this.updateContent}/>,
         contentButton: 'Save'
       });
     }
 
   },
 
+  cardDrop: function(e) {
+    var data = JSON.parse(e.dataTransfer.getData('application/json'));
+    if(data._id === this.props._id) {
+      console.log('same card!')
+    } else {
+      this.props.cardInsert(e, data, this.props.index)
+    }
+    e.stopPropagation();
+  },
 
+  dragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('application/json', JSON.stringify({_id: this.props._id, cardIndex: this.props.index, columnIndex: this.props.parentIndex}));
+  },
+
+  putName: function() {
+     var newCard = {
+        name: this.state.name,
+        content: this.state.content,
+        users: this.state.users.map(function(user) {
+          return user._id
+        }),
+        comments: this.state.comments,
+        colors: this.state.colors,
+      };
+
+      $.ajax({
+        method: 'PUT',
+        data: JSON.stringify(newCard),
+        contentType: 'application/json',
+        url: '/cards/' + this.props._id,
+        success: function(data, status, xhr) {
+        }.bind(this),
+        error: function(xhr, status, err) {
+          console.error('ERROR in PUT /cards/' + this.props._id);
+        }.bind(this),
+      });
+    },
 
   render: function() {
     var view;
-    var buttonName;
     var setColors = ['blue', 'green', 'red', 'yellow'];
 
     var summaryUsers = this.state.users.map(function(user) {
-      return <UserSummaryList userInitials={user.replace(/[^A-Z]/g, '')} />
+      return <UserSummaryList userInitials={user.fullName.replace(/[^A-Z]/g, '')} />
     }.bind(this));
 
     var clickColors = setColors.map(function(setColor) {
@@ -164,13 +280,14 @@ var Card = React.createClass({
       var active = false;
       for (var i = 0; i < this.state.users.length; i++) {
 
-        if (boardUser === this.state.users[i]) {
+        if (boardUser._id === this.state.users[i]._id) {
           active = true;
           break;
         }
       }
       return <ChooseUserBox userToggled={this.userToggled}
                             user={boardUser}
+                            userName={boardUser.fullName}
                             initialActive={active}
                             className={boardUser.fullName + (active ? ' activeUser': '')} />
     }.bind(this));
@@ -189,32 +306,37 @@ var Card = React.createClass({
         Enter Card Name:
         <input type='text'
                value={this.state.name}
-               onChange={this.updateName} />
+               onChange={this.updateName}
+               onBlur={this.putName} />
         Card Content:
-        {this.state.contentView}
+        {(this.state.contentButton === 'Save') ? <textarea name='content'
+                             value={this.state.content}
+                             onChange={this.updateContent}/> : <div>{this.state.content}</div>}
         <button onClick={this.toggleContent}>{this.state.contentButton}</button>
 
         Colors: {clickColors}
         Users: {clickUsers}
         Comments:
-        <textarea name='comments' value={this.props.comments} ref='newComment' />
+        <textarea placeholder="Add comment..." value={this.state.newComment} onChange={this.handleNewComment} />
         <button onClick={this.handleAddComment}>Add</button>
         {coms}
+        <button onClick={this.toggleCardView}>Done</button>
       </form>;
-      buttonName = 'Done';
     } else {
-      view = <div>
+      view = <div
+        draggable='true'
+        onDragStart={this.dragStart}
+        onDrop={this.cardDrop}>
         <h3>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
         {summaryUsers}
+        <button onClick={this.toggleCardView}>Edit</button>
       </div>
-      buttonName = 'Edit';
     }
     return (
       <div className='card'>
         {view}
-        <button onClick={this.toggleCardView}>{buttonName}</button>
       </div>
     );
   }

@@ -14,7 +14,7 @@ var App = React.createClass({
     return {
       user: 'Log in!',
       currentBoard: 'No Boards',
-      boards: [],
+      shouldHide: true,
       pageToShow:
       <div className='splash'>
         <Splash />
@@ -53,7 +53,8 @@ var App = React.createClass({
 
   showBoards: function() {
     this.setState({
-      pageToShow: <Main handleBoardName={this.handleBoardName} handleBoardLoad={this.handleBoardLoad} />
+      pageToShow: <Main handleBoardName={this.handleBoardName} handleBoardLoad={this.handleBoardLoad} />,
+      shouldHide: false
     });
   },
 
@@ -62,7 +63,8 @@ var App = React.createClass({
       <main>
         <Header user={this.state.user}
                 boards={this.state.boards}
-                currentBoard={this.state.currentBoard} />
+                currentBoard={this.state.currentBoard}
+                shouldHide = {this.state.shouldHide} />
         {this.state.pageToShow}
       </main>
     );
