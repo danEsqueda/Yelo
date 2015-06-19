@@ -83,6 +83,18 @@ body
     input[type="submit"]:hover
       background-color: $light-grey
 
+#create-board
+  @include outer-container
+  form
+    @include span-columns(6)
+    @include shift(3)
+    input
+      color: $black
+  width: 250px
+
+.board-list-container
+  button
+    margin: .25em
 
 .red
   width: 20px

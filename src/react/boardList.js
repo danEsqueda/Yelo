@@ -71,9 +71,9 @@ var BoardList = React.createClass({
     }.bind(this));
 
     return (
-      <div>
+      <div className='board-list-container'>
         {boardList}
-        <input type='text' value={this.state.boardName} onChange={this.updateBoardName}></input>
+        <input id='create-board' type='text' placeholder='New Board Name' value={this.state.boardName} onChange={this.updateBoardName}></input>
         <button onClick={this.addBoard}>Create Board</button>
       </div>
     )
