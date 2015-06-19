@@ -9,6 +9,10 @@ var Main = React.createClass({
     };
   },
 
+  handleAddColumn: function() {
+    console.log('get to main line 13');
+  },
+
   handleBoardList: function() {
       this.setState({
         currentlyShowing: <BoardList handleBoard={this.handleBoard} />
@@ -17,7 +21,8 @@ var Main = React.createClass({
 
   handleBoard: function(key) {
       this.setState({
-        currentlyShowing: <Board key={key} _id={key} handleBoardList={this.handleBoardList}/>
+        currentlyShowing: <Board key={key} _id={key} handleBoardList={this.handleBoardList}
+        handleAddColumn={this.handleAddColumn}/>
       })
   },
 

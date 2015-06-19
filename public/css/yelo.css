@@ -25,30 +25,35 @@
   border-style: solid;
 }*/
 
-img {
+.hidden {
+  display:none;
+}
+
+#splashimg {
     display: block;
     margin: 0 auto;
 }
 
-h2 {
+#splashh2 {
   font-family: Futura;
   font-size: 16px;
   text-align: center;
 }
 
-table {
+#splashtable {
   margin: 0 auto;
+  border-color: red
 }
-td {
+.splashtd {
   text-align: right;
 }
 
-a {
+#splasha {
   font-size: 14px;
   color: darkgrey;
 }
 
-button {
+#splashbutton {
  color:#08233e;
   font:14px Futura, ‘Century Gothic’, AppleGothic, sans-serif;
   padding:5px;
@@ -61,7 +66,7 @@ button {
   rgba(255,255,255,0.5);
   cursor:pointer;
 }
-button:hover{background-color:rgba(255,204,0,0.8);}
+.splashbutton:hover{background-color:rgba(255,204,0,0.8);}
 
 .message {
   color: red;
