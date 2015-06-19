@@ -8,7 +8,6 @@ var Board = React.createClass({
       name: '',
       columns: [],
       users: [],
-
     };
   },
 
@@ -20,21 +19,13 @@ var Board = React.createClass({
         users: data.users
       });
     }.bind(this));
-
-    //TEST DATA
-    // this.setState({
-      // name: 'My new board!',
-      // columns: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
-      // users: [1]
-    // });
-
   },
-  
+
   removeForeignCard: function(cardId, columnIndex) {
     this.refs[columnIndex].removeCard(cardId);
     this.refs[columnIndex].forceUpdate();
     this.refs[columnIndex].updateColumn();
-    
+
   },
 
   render: function() {
