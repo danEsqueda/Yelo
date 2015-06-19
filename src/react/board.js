@@ -34,9 +34,7 @@ var Board = React.createClass({
 
     var columnList = this.state.columns.map(function(column) {
       return (
-        <div key={column} className='board' className='grid_3'>
-          <Column key={column} _id={column} boardUsers={this.state.users} />
-        </div>
+        <Column key={column} _id={column} boardUsers={this.state.users} />
       )
     }.bind(this));
 
@@ -44,11 +42,13 @@ var Board = React.createClass({
     //boardID
 
     return (
-      <div>
+      <div id="board">
         <button onClick={this.props.handleBoardList}>Return To Board List</button>
         <p>{this.state.name}
         </p>
-        {columnList}
+        <div id="column-container">
+          {columnList}
+        </div>
       </div>
     );
   }

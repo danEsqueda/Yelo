@@ -129,8 +129,10 @@ var Column = React.createClass({
 
     return (
       <div className='column' onDragOver={this.dragOver} onDrop={this.columnDrop} >
-        <p>{this.state.name}</p>
-        <button onClick={this.handleAddCard}>Add Card</button>
+        <div className='column-header'>
+          <p>{this.state.name}</p>
+          <button onClick={this.handleAddCard}>Add Card</button>
+        </div>
         {cardList}
       </div>
     );
