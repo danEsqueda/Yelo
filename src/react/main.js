@@ -42,9 +42,7 @@ var Main = React.createClass({
 
     return (
       <div>
-        <div>
-          {this.state.currentlyShowing}
-        </div>
+        {this.state.currentlyShowing}
       </div>
     );
   }
