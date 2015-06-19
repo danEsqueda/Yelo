@@ -5,13 +5,13 @@ var BoardList = require('./boardList');
 var Main = React.createClass({
   getInitialState: function() {
     return {
-      currentlyShowing: <BoardList handleBoard={this.handleBoard} />
+      currentlyShowing: <BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
     };
   },
 
   handleBoardList: function() {
       this.setState({
-        currentlyShowing: <BoardList handleBoard={this.handleBoard} />
+        currentlyShowing: <BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
       })
   },
 
@@ -19,13 +19,17 @@ var Main = React.createClass({
       this.setState({
         currentlyShowing: <Board key={key} _id={key} handleBoardList={this.handleBoardList}/>
       })
+      this.props.handleBoardName(key)
   },
 
   render: function() {
 
     return (
       <div>
-        {this.state.currentlyShowing}
+        <div className={this.props.showBoardList ? '' : 'hidden'}>
+          <BoardList handleBoard={this.handleBoard} handleBoardLoad={this.props.handleBoardLoad} />
+        </div>
+          {this.state.currentlyShowing}
       </div>
     );
   }

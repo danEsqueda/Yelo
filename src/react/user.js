@@ -27,8 +27,8 @@ var User = React.createClass({
         data: JSON.stringify(checkLogin),
         cache: false,
         success: function(data) {
-          console.log('success here');
           this.props.handleSuccessfulLogin();
+          this.props.handleUserLoad(data)
         }.bind(this),
         error: function(xhr, status, err) {
           console.log('Error logging in!');

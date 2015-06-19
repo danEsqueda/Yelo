@@ -25,6 +25,10 @@
   border-style: solid;
 }*/
 
+.hidden {
+  display: none;
+}
+
 img {
     display: block;
     margin: 0 auto;
