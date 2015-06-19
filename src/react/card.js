@@ -303,38 +303,50 @@ var Card = React.createClass({
     });
     if (this.state.editView) {
       view = <form>
+        <div className='entername'>
         Enter Card Name:
-        <input type='text'
+        <input className='nameinput'
+               type='text'
                value={this.state.name}
                onChange={this.updateName}
                onBlur={this.putName} />
+        </div>
+        <div className='content'>
+
         Card Content:
-        {(this.state.contentButton === 'Save') ? <textarea name='content'
+        {(this.state.contentButton === 'Save') ? <textarea className='contentinput'
+                             name='content'
                              value={this.state.content}
-                             onChange={this.updateContent}/> : <div>{this.state.content}</div>}
-        <button onClick={this.toggleContent}>{this.state.contentButton}</button>
+                             onChange={this.updateContent}/> : <div className='doneContent'>{this.state.content}</div>}
+        <button className='contentbutton' onClick={this.toggleContent}>{this.state.contentButton}</button>
+        </div>
         <div>
           Colors: {clickColors}
         </div>
         Users: {clickUsers}
+        <div className='entercomments'>
         Comments:
-        <textarea placeholder="Add comment..." value={this.state.newComment} onChange={this.handleNewComment} />
-        <button onClick={this.handleAddComment}>Add</button>
+        <textarea placeholder="Add comment..."
+                  value={this.state.newComment}
+                  onChange={this.handleNewComment}
+                  className='commentsinput' />
+        <button className='commentbutton' onClick={this.handleAddComment}>Add</button>
         {coms}
         <button onClick={this.toggleCardView}>Done</button>
+        </div>
       </form>;
     } else {
       view = <div
         draggable='true'
         onDragStart={this.dragStart}
         onDrop={this.cardDrop}>
-        <h3>{this.state.name}</h3>
+        <h3 className='summaryname'>{this.state.name}</h3>
         {summaryColors}
         <p>{this.state.comments.length} comments</p>
         <div>
           {summaryUsers}
         </div>
-        <button onClick={this.toggleCardView}>Edit</button>
+        <button className='editbutton' onClick={this.toggleCardView}>Edit</button>
       </div>
     }
     return (
